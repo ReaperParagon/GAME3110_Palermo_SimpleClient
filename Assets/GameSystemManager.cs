@@ -8,6 +8,7 @@ public class GameSystemManager : MonoBehaviour
 
     GameObject submitButton, userNameInput, passwordInput, createToggle, loginToggle;
 
+    GameObject networkedClient;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,8 @@ public class GameSystemManager : MonoBehaviour
                 createToggle = go;
             else if (go.name == "LoginToggle")
                 loginToggle = go;
+            else if (go.name == "Client")
+                networkedClient = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
@@ -46,6 +49,20 @@ public class GameSystemManager : MonoBehaviour
     {
         // We want to send login information to the server
         // Debug.Log("Submitted!");
+
+        string n = userNameInput.GetComponent<InputField>().text;
+        string p = passwordInput.GetComponent<InputField>().text;
+
+        string msg;
+
+        if(createToggle.GetComponent<Toggle>().isOn)
+            msg = ClientToServerSignifiers.CreateAccount + "," + n + "," + p;
+        else
+            msg = ClientToServerSignifiers.Login + "," + n + "," + p;
+
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(msg);
+
+        Debug.Log(msg);
     }
 
     public void LoginToggleChanged(bool newValue)
