@@ -128,9 +128,14 @@ public class NetworkedClient : MonoBehaviour
         {
             gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
         }
+        else if (signifier == ServerToClientSignifiers.GameStart)
+        {
+            Debug.Log("Joined a Game!");
+            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.TicTacToe);
+        }
         else if (signifier == ServerToClientSignifiers.OpponentPlayed)
         {
-            Debug.Log("Opponent Played!");
+            Debug.Log("Opponent Played an X or O!");
         }
     }
 
@@ -161,4 +166,5 @@ public static class ServerToClientSignifiers
     public const int AccountCreationFailed = 4;
 
     public const int OpponentPlayed = 5;
+    public const int GameStart = 6;
 }
