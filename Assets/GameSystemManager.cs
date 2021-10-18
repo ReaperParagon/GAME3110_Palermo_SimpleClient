@@ -10,6 +10,7 @@ public class GameSystemManager : MonoBehaviour
     GameObject textNameInfo, textPassordInfo;
 
     GameObject joinGameRoomButton;
+    GameObject tictactoeSquareButton;
 
     GameObject networkedClient;
 
@@ -42,13 +43,15 @@ public class GameSystemManager : MonoBehaviour
                 textNameInfo = go;
             else if (go.name == "TextPassInfo")
                 textPassordInfo = go;
+            else if (go.name == "TicTacToeSquareButton")
+                tictactoeSquareButton = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
-
         loginToggle.GetComponent<Toggle>().onValueChanged.AddListener(LoginToggleChanged);
-
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
+        joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
+        tictactoeSquareButton.GetComponent<Button>().onClick.AddListener(TicTacToeSquareButtonPressed);
 
         ChangeState(GameStates.LoginMenu);
     }
@@ -103,6 +106,8 @@ public class GameSystemManager : MonoBehaviour
         textNameInfo.SetActive(false);
         textPassordInfo.SetActive(false);
 
+        tictactoeSquareButton.SetActive(false);
+
         if (newState == GameStates.LoginMenu)
         {
             submitButton.SetActive(true);
@@ -119,12 +124,24 @@ public class GameSystemManager : MonoBehaviour
         }
         else if (newState == GameStates.WaitingInQueueForOtherPlayer)
         {
-            // joinGameRoomButton.SetActive(true);
+            // Back Button, loading UI
         }
         else if (newState == GameStates.TicTacToe)
         {
             // Set TicTacToe stuff to active
+            tictactoeSquareButton.SetActive(true);
         }
+    }
+
+    public void JoinGameRoomButtonPressed()
+    {
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.JoinQueueForGameRoom + "");
+        ChangeState(GameStates.WaitingInQueueForOtherPlayer);
+    }
+
+    public void TicTacToeSquareButtonPressed()
+    {
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "");
     }
 }
 

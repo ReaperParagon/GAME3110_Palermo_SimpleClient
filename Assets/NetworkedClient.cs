@@ -128,6 +128,10 @@ public class NetworkedClient : MonoBehaviour
         {
             gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
         }
+        else if (signifier == ServerToClientSignifiers.OpponentPlayed)
+        {
+            Debug.Log("Opponent Played!");
+        }
     }
 
     public bool IsConnected()
@@ -143,6 +147,10 @@ public static class ClientToServerSignifiers
 {
     public const int CreateAccount = 1;
     public const int Login = 2;
+
+    public const int JoinQueueForGameRoom = 3;
+
+    public const int TicTacToePlay = 4;
 }
 
 public static class ServerToClientSignifiers
@@ -151,4 +159,6 @@ public static class ServerToClientSignifiers
     public const int LoginFailed = 2;
     public const int AccountCreationComplete = 3;
     public const int AccountCreationFailed = 4;
+
+    public const int OpponentPlayed = 5;
 }
