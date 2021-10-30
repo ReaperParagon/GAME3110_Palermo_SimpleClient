@@ -10,9 +10,12 @@ public class GameSystemManager : MonoBehaviour
     GameObject textNameInfo, textPassordInfo;
 
     GameObject joinGameRoomButton;
-    GameObject tictactoeSquareButton;
+    GameObject tictactoeBoard;
+    List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
 
     GameObject networkedClient;
+
+    public int OurTeam;
 
     // static GameObject Instance;
 
@@ -43,15 +46,22 @@ public class GameSystemManager : MonoBehaviour
                 textNameInfo = go;
             else if (go.name == "TextPassInfo")
                 textPassordInfo = go;
-            else if (go.name == "TicTacToeSquareButton")
-                tictactoeSquareButton = go;
+            else if (go.name == "TicTacToeBoard")
+                tictactoeBoard = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
         loginToggle.GetComponent<Toggle>().onValueChanged.AddListener(LoginToggleChanged);
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
-        tictactoeSquareButton.GetComponent<Button>().onClick.AddListener(TicTacToeSquareButtonPressed);
+
+        for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
+        {
+            int index = i;
+            tictactoeSquareButtonList.Add(tictactoeBoard.transform.GetChild(index).gameObject);
+            tictactoeSquareButtonList[i].GetComponent<Button>().onClick.AddListener(delegate { TicTacToeSquareButtonPressed(index); } );
+        }
+
 
         ChangeState(GameStates.LoginMenu);
     }
@@ -106,7 +116,11 @@ public class GameSystemManager : MonoBehaviour
         textNameInfo.SetActive(false);
         textPassordInfo.SetActive(false);
 
-        tictactoeSquareButton.SetActive(false);
+        // tictactoeSquareButton.SetActive(false);
+        foreach (var square in tictactoeSquareButtonList)
+        {
+            square.SetActive(false);
+        }
 
         if (newState == GameStates.LoginMenu)
         {
@@ -129,7 +143,11 @@ public class GameSystemManager : MonoBehaviour
         else if (newState == GameStates.TicTacToe)
         {
             // Set TicTacToe stuff to active
-            tictactoeSquareButton.SetActive(true);
+            // tictactoeSquareButton.SetActive(true);
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.SetActive(true);
+            }
         }
     }
 
@@ -139,13 +157,54 @@ public class GameSystemManager : MonoBehaviour
         ChangeState(GameStates.WaitingInQueueForOtherPlayer);
     }
 
-    public void TicTacToeSquareButtonPressed()
+    public void SetTurn(int turn)
     {
-        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "");
+        if (turn == TurnSignifier.MyTurn)
+        {
+            // Enable squares
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.GetComponent<Button>().interactable = true;
+            }
+        }
+        else if (turn == TurnSignifier.TheirTurn)
+        {
+            // Disable squares
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.GetComponent<Button>().interactable = false;
+            }
+        }
+    }
+
+    public void SetOpponentPlay(int index, int team)
+    {
+        if (team == TeamSignifier.O)
+            tictactoeSquareButtonList[index].transform.GetChild(0).GetComponent<Text>().text = "O";
+        if (team == TeamSignifier.X)
+            tictactoeSquareButtonList[index].transform.GetChild(0).GetComponent<Text>().text = "X";
+    }
+
+    public void TicTacToeSquareButtonPressed(int index)
+    {
+        // Set to not our turn
+        SetTurn(TurnSignifier.TheirTurn);
+
+        // Update board
+        if (OurTeam == TeamSignifier.O)
+            tictactoeSquareButtonList[index].transform.GetChild(0).GetComponent<Text>().text = "O";
+        if (OurTeam == TeamSignifier.X)
+            tictactoeSquareButtonList[index].transform.GetChild(0).GetComponent<Text>().text = "X";
+
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "," + index);
     }
 }
 
-
+static public class TurnSignifier
+{
+    public const int MyTurn = 0;
+    public const int TheirTurn = 1;
+}
 static public class GameStates
 {
     public const int LoginMenu = 1;

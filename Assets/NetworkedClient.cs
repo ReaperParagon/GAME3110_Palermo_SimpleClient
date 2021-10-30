@@ -131,11 +131,25 @@ public class NetworkedClient : MonoBehaviour
         else if (signifier == ServerToClientSignifiers.GameStart)
         {
             Debug.Log("Joined a Game!");
+            // Set our team
+            gameSystemManager.GetComponent<GameSystemManager>().OurTeam = int.Parse(csv[1]);
+
+            // Get whose turn it is
+            gameSystemManager.GetComponent<GameSystemManager>().SetTurn(int.Parse(csv[1]));
             gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.TicTacToe);
         }
         else if (signifier == ServerToClientSignifiers.OpponentPlayed)
         {
             Debug.Log("Opponent Played an X or O!");
+
+            // Set the X or O in the right place
+            var location = int.Parse(csv[1]);
+            var team = int.Parse(csv[2]);
+
+            gameSystemManager.GetComponent<GameSystemManager>().SetOpponentPlay(location, team);
+
+            // Set to your turn
+            gameSystemManager.GetComponent<GameSystemManager>().SetTurn(TurnSignifier.MyTurn);
         }
     }
 
@@ -147,6 +161,11 @@ public class NetworkedClient : MonoBehaviour
 
 }
 
+public static class TeamSignifier
+{
+    public const int O = 0;
+    public const int X = 1;
+}
 
 public static class ClientToServerSignifiers
 {
