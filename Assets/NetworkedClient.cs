@@ -189,6 +189,8 @@ public static class ClientToServerSignifiers
     public const int JoinQueueForGameRoom = 3;
 
     public const int TicTacToePlay = 4;
+
+    public const int LeaveRoom = 5;
 }
 
 public static class ServerToClientSignifiers

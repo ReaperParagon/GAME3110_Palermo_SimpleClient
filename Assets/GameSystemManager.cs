@@ -62,7 +62,7 @@ public class GameSystemManager : MonoBehaviour
         loginToggle.GetComponent<Toggle>().onValueChanged.AddListener(LoginToggleChanged);
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
-        playAgainButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
+        playAgainButton.GetComponent<Button>().onClick.AddListener(PlayAgainButtonPressed);
         watchReplayButton.GetComponent<Button>().onClick.AddListener(WatchReplay);
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
@@ -172,6 +172,30 @@ public class GameSystemManager : MonoBehaviour
         }
     }
 
+    public void ResetBoard()
+    {
+        // Set all the button's texts back to nothing
+        foreach (var square in tictactoeSquareButtonList)
+        {
+            square.transform.GetChild(0).GetComponent<Text>().text = "";
+        }
+    }
+
+    public void PlayAgainButtonPressed()
+    {
+        ResetBoard();
+
+        // Tell server client has left the room
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.LeaveRoom + "");
+
+        // Requeue
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.JoinQueueForGameRoom + "");
+
+        // Change State
+        ChangeState(GameStates.WaitingInQueueForOtherPlayer);
+
+    }
+
     public void JoinGameRoomButtonPressed()
     {
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.JoinQueueForGameRoom + "");
@@ -180,6 +204,8 @@ public class GameSystemManager : MonoBehaviour
 
     public void WatchReplay()
     {
+        ResetBoard();
+
         // TODO: implement Replay
     }
 
