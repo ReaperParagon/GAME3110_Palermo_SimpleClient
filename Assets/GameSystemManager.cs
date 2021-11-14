@@ -13,6 +13,8 @@ public class GameSystemManager : MonoBehaviour
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
 
+    GameObject gameOverText, playAgainButton, watchReplayButton;
+
     GameObject networkedClient;
 
     public int OurTeam;
@@ -48,12 +50,20 @@ public class GameSystemManager : MonoBehaviour
                 textPassordInfo = go;
             else if (go.name == "TicTacToeBoard")
                 tictactoeBoard = go;
+            else if (go.name == "GameOverText")
+                gameOverText = go;
+            else if (go.name == "PlayAgainButton")
+                playAgainButton = go;
+            else if (go.name == "WatchReplayButton")
+                watchReplayButton = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
         loginToggle.GetComponent<Toggle>().onValueChanged.AddListener(LoginToggleChanged);
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
+        playAgainButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
+        watchReplayButton.GetComponent<Button>().onClick.AddListener(WatchReplay);
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -116,6 +126,10 @@ public class GameSystemManager : MonoBehaviour
         textNameInfo.SetActive(false);
         textPassordInfo.SetActive(false);
 
+        gameOverText.SetActive(false);
+        watchReplayButton.SetActive(false);
+        playAgainButton.SetActive(false);
+
         // tictactoeSquareButton.SetActive(false);
         foreach (var square in tictactoeSquareButtonList)
         {
@@ -149,12 +163,36 @@ public class GameSystemManager : MonoBehaviour
                 square.SetActive(true);
             }
         }
+        else if (newState == GameStates.GameEnd)
+        {
+            // Show Game end stuff
+            gameOverText.SetActive(true);
+            watchReplayButton.SetActive(true);
+            playAgainButton.SetActive(true);
+        }
     }
 
     public void JoinGameRoomButtonPressed()
     {
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.JoinQueueForGameRoom + "");
         ChangeState(GameStates.WaitingInQueueForOtherPlayer);
+    }
+
+    public void WatchReplay()
+    {
+        // TODO: implement Replay
+    }
+
+    public void SetWinLoss(int winLoss)
+    {
+        if (winLoss == WinStates.Win)
+        {
+            gameOverText.GetComponent<Text>().text = "You Won!";
+        }
+        else
+        {
+            gameOverText.GetComponent<Text>().text = "You Lost...";
+        }
     }
 
     public void SetTurn(int turn)
@@ -212,4 +250,6 @@ static public class GameStates
     public const int WaitingInQueueForOtherPlayer = 3;
 
     public const int TicTacToe = 4;
+
+    public const int GameEnd = 5;
 }

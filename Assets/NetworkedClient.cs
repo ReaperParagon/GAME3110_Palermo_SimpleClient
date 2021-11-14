@@ -145,11 +145,24 @@ public class NetworkedClient : MonoBehaviour
             // Set the X or O in the right place
             var location = int.Parse(csv[1]);
             var team = int.Parse(csv[2]);
+            var continuePlay = int.Parse(csv[3]);
 
             gameSystemManager.GetComponent<GameSystemManager>().SetOpponentPlay(location, team);
 
-            // Set to your turn
-            gameSystemManager.GetComponent<GameSystemManager>().SetTurn(TurnSignifier.MyTurn);
+            // Set to your turn if we are continuing playing
+            if (continuePlay == WinStates.ContinuePlay)
+                gameSystemManager.GetComponent<GameSystemManager>().SetTurn(TurnSignifier.MyTurn);
+        }
+        else if (signifier == ServerToClientSignifiers.GameOver)
+        {
+            var outcome = int.Parse(csv[1]);
+
+            Debug.Log("Game is over");
+
+            // Tell Game system that game is over and to display end game information
+            gameSystemManager.GetComponent<GameSystemManager>().SetWinLoss(outcome);
+            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.GameEnd);
+
         }
     }
 
@@ -163,6 +176,7 @@ public class NetworkedClient : MonoBehaviour
 
 public static class TeamSignifier
 {
+    public const int None = -1;
     public const int O = 0;
     public const int X = 1;
 }
@@ -186,4 +200,13 @@ public static class ServerToClientSignifiers
 
     public const int OpponentPlayed = 5;
     public const int GameStart = 6;
+
+    public const int GameOver = 7;
+}
+
+public static class WinStates
+{
+    public const int ContinuePlay = 0;
+    public const int Win = 1;
+    public const int Loss = 2;
 }
