@@ -15,9 +15,13 @@ public class GameSystemManager : MonoBehaviour
 
     GameObject gameOverText, playAgainButton, watchReplayButton;
 
+    GameObject textHistory, chatPanel;
+    GameObject greetButton, ggButton, niceButton, oopsButton;
+
     GameObject networkedClient;
 
     public int OurTeam;
+    public GameObject messagePrefab;
 
     // static GameObject Instance;
 
@@ -56,6 +60,18 @@ public class GameSystemManager : MonoBehaviour
                 playAgainButton = go;
             else if (go.name == "WatchReplayButton")
                 watchReplayButton = go;
+            else if (go.name == "TextHistory")
+                textHistory = go;
+            else if (go.name == "ChatPanel")
+                chatPanel = go;
+            else if (go.name == "GreetButton")
+                greetButton = go;
+            else if (go.name == "GGButton")
+                ggButton = go;
+            else if (go.name == "NiceButton")
+                niceButton = go;
+            else if (go.name == "OopsButton")
+                oopsButton = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
@@ -64,6 +80,12 @@ public class GameSystemManager : MonoBehaviour
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
         playAgainButton.GetComponent<Button>().onClick.AddListener(PlayAgainButtonPressed);
         watchReplayButton.GetComponent<Button>().onClick.AddListener(WatchReplay);
+
+        greetButton.GetComponent<Button>().onClick.AddListener(GreetButtonPressed);
+        ggButton.GetComponent<Button>().onClick.AddListener(GGButtonPressed);
+        niceButton.GetComponent<Button>().onClick.AddListener(NiceButtonPressed);
+        oopsButton.GetComponent<Button>().onClick.AddListener(OopsButtonPressed);
+
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -74,12 +96,6 @@ public class GameSystemManager : MonoBehaviour
 
 
         ChangeState(GameStates.LoginMenu);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SubmitButtonPressed()
@@ -130,6 +146,13 @@ public class GameSystemManager : MonoBehaviour
         watchReplayButton.SetActive(false);
         playAgainButton.SetActive(false);
 
+        textHistory.SetActive(false);
+        chatPanel.SetActive(false);
+        greetButton.SetActive(false);
+        ggButton.SetActive(false);
+        niceButton.SetActive(false);
+        oopsButton.SetActive(false);
+
         // tictactoeSquareButton.SetActive(false);
         foreach (var square in tictactoeSquareButtonList)
         {
@@ -157,18 +180,40 @@ public class GameSystemManager : MonoBehaviour
         else if (newState == GameStates.TicTacToe)
         {
             // Set TicTacToe stuff to active
-            // tictactoeSquareButton.SetActive(true);
             foreach (var square in tictactoeSquareButtonList)
             {
                 square.SetActive(true);
             }
+
+            // Show Messages
+            textHistory.SetActive(true);
+            chatPanel.SetActive(true);
+            greetButton.SetActive(true);
+            ggButton.SetActive(true);
+            niceButton.SetActive(true);
+            oopsButton.SetActive(true);
         }
         else if (newState == GameStates.GameEnd)
         {
             // Show Game end stuff
+
+            // Set TicTacToe stuff to active
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.SetActive(true);
+            }
+
             gameOverText.SetActive(true);
             watchReplayButton.SetActive(true);
             playAgainButton.SetActive(true);
+
+            // Show Messages
+            textHistory.SetActive(true);
+            chatPanel.SetActive(true);
+            greetButton.SetActive(true);
+            ggButton.SetActive(true);
+            niceButton.SetActive(true);
+            oopsButton.SetActive(true);
         }
     }
 
@@ -215,9 +260,13 @@ public class GameSystemManager : MonoBehaviour
         {
             gameOverText.GetComponent<Text>().text = "You Won!";
         }
-        else
+        else if (winLoss == WinStates.Loss)
         {
             gameOverText.GetComponent<Text>().text = "You Lost...";
+        }
+        else if (winLoss == WinStates.Tie)
+        {
+            gameOverText.GetComponent<Text>().text = "It's a Tie.";
         }
     }
 
@@ -228,7 +277,9 @@ public class GameSystemManager : MonoBehaviour
             // Enable squares
             foreach (var square in tictactoeSquareButtonList)
             {
-                square.GetComponent<Button>().interactable = true;
+                // Check if there is something in that square
+                if (square.transform.GetChild(0).GetComponent<Text>().text == "")
+                    square.GetComponent<Button>().interactable = true;
             }
         }
         else if (turn == TurnSignifier.TheirTurn)
@@ -261,6 +312,61 @@ public class GameSystemManager : MonoBehaviour
             tictactoeSquareButtonList[index].transform.GetChild(0).GetComponent<Text>().text = "X";
 
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "," + index);
+    }
+
+    public void GreetButtonPressed()
+    {
+        SendTextMessage("Hello!");
+    }
+
+    public void GGButtonPressed()
+    {
+        SendTextMessage("Good Game!");
+    }
+
+    public void NiceButtonPressed()
+    {
+        SendTextMessage("Nice one!");
+    }
+
+    public void OopsButtonPressed()
+    {
+        SendTextMessage("Oops!");
+    }
+
+    public void SendTextMessage(string msg)
+    {
+        if (msg != "")
+        {
+            // Remove Commas
+            var csv = msg.Split(',');
+            string newMsg = "";
+
+            foreach (var str in csv)
+            {
+                newMsg += str + " ";
+            }
+
+            // Display the message just sent
+            // DisplayMessage(newMsg);
+
+            // Send Message
+            networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TextMessage + "," + newMsg);
+        }
+    }
+
+    public void DisplayMessage(string msg)
+    {
+        var content = textHistory.transform.GetChild(0).GetChild(0);
+
+        // Display Message in Chat history
+        GameObject text = Instantiate(messagePrefab);
+        text.GetComponent<Text>().text = msg;
+        text.transform.SetParent(content);
+
+        var scrollview = textHistory.GetComponent<ScrollRect>();
+
+        scrollview.verticalNormalizedPosition = 0;
     }
 }
 

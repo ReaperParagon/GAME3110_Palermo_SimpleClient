@@ -164,6 +164,11 @@ public class NetworkedClient : MonoBehaviour
             gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.GameEnd);
 
         }
+        else if (signifier == ServerToClientSignifiers.TextMessage)
+        {
+            // Display the message in the chat
+            gameSystemManager.GetComponent<GameSystemManager>().DisplayMessage(csv[1]);
+        }
     }
 
     public bool IsConnected()
@@ -191,6 +196,8 @@ public static class ClientToServerSignifiers
     public const int TicTacToePlay = 4;
 
     public const int LeaveRoom = 5;
+
+    public const int TextMessage = 6;
 }
 
 public static class ServerToClientSignifiers
@@ -204,6 +211,8 @@ public static class ServerToClientSignifiers
     public const int GameStart = 6;
 
     public const int GameOver = 7;
+
+    public const int TextMessage = 8;
 }
 
 public static class WinStates
@@ -211,4 +220,5 @@ public static class WinStates
     public const int ContinuePlay = 0;
     public const int Win = 1;
     public const int Loss = 2;
+    public const int Tie = 3;
 }
