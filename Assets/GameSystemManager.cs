@@ -17,6 +17,7 @@ public class GameSystemManager : MonoBehaviour
 
     GameObject textHistory, chatPanel;
     GameObject greetButton, ggButton, niceButton, oopsButton;
+    GameObject inputMessageField, sendButton;
 
     GameObject networkedClient;
 
@@ -72,6 +73,10 @@ public class GameSystemManager : MonoBehaviour
                 niceButton = go;
             else if (go.name == "OopsButton")
                 oopsButton = go;
+            else if (go.name == "InputMessage")
+                inputMessageField = go;
+            else if (go.name == "SendButton")
+                sendButton = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
@@ -85,6 +90,7 @@ public class GameSystemManager : MonoBehaviour
         ggButton.GetComponent<Button>().onClick.AddListener(GGButtonPressed);
         niceButton.GetComponent<Button>().onClick.AddListener(NiceButtonPressed);
         oopsButton.GetComponent<Button>().onClick.AddListener(OopsButtonPressed);
+        sendButton.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
 
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
@@ -183,6 +189,14 @@ public class GameSystemManager : MonoBehaviour
             foreach (var square in tictactoeSquareButtonList)
             {
                 square.SetActive(true);
+            }
+
+            // Reset Messages
+            var content = textHistory.transform.GetChild(0).GetChild(0);
+
+            for (int i = content.childCount - 1; i >= 0; i--)
+            {
+                Destroy(content.GetChild(i).gameObject);
             }
 
             // Show Messages
@@ -314,6 +328,19 @@ public class GameSystemManager : MonoBehaviour
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "," + index);
     }
 
+    public void SendButtonPressed()
+    {
+        // Get text from Input field
+        var inputField = inputMessageField.GetComponent<InputField>();
+        var text = inputField.text;
+
+        // Send Information to server
+        SendTextMessage(text);
+
+        // Reset Input field text
+        inputField.text = "";
+    }
+
     public void GreetButtonPressed()
     {
         SendTextMessage("Hello!");
@@ -347,9 +374,6 @@ public class GameSystemManager : MonoBehaviour
                 newMsg += str + " ";
             }
 
-            // Display the message just sent
-            // DisplayMessage(newMsg);
-
             // Send Message
             networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TextMessage + "," + newMsg);
         }
@@ -358,15 +382,15 @@ public class GameSystemManager : MonoBehaviour
     public void DisplayMessage(string msg)
     {
         var content = textHistory.transform.GetChild(0).GetChild(0);
+        var scrollbar = textHistory.transform.GetChild(1).GetComponent<Scrollbar>();
 
         // Display Message in Chat history
         GameObject text = Instantiate(messagePrefab);
         text.GetComponent<Text>().text = msg;
         text.transform.SetParent(content);
 
-        var scrollview = textHistory.GetComponent<ScrollRect>();
-
-        scrollview.verticalNormalizedPosition = 0;
+        // Scroll to bottom on message recieved
+        scrollbar.value = 0;
     }
 }
 
