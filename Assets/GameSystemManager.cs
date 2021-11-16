@@ -13,7 +13,7 @@ public class GameSystemManager : MonoBehaviour
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
 
-    GameObject gameOverText, playAgainButton;
+    GameObject gameOverText, returnToMenuButton, backToMenuButton;
 
     GameObject textHistory, chatPanel;
     GameObject greetButton, ggButton, niceButton, oopsButton;
@@ -54,8 +54,10 @@ public class GameSystemManager : MonoBehaviour
                 tictactoeBoard = go;
             else if (go.name == "GameOverText")
                 gameOverText = go;
-            else if (go.name == "PlayAgainButton")
-                playAgainButton = go;
+            else if (go.name == "ReturnToMenuButton")
+                returnToMenuButton = go;
+            else if (go.name == "BackToMenuButton")
+                backToMenuButton = go;
             else if (go.name == "GoToReplayButton")
                 gotoReplayButton = go;
             else if (go.name == "TextHistory")
@@ -86,7 +88,8 @@ public class GameSystemManager : MonoBehaviour
         loginToggle.GetComponent<Toggle>().onValueChanged.AddListener(LoginToggleChanged);
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
-        playAgainButton.GetComponent<Button>().onClick.AddListener(PlayAgainButtonPressed);
+        returnToMenuButton.GetComponent<Button>().onClick.AddListener(GoToMenuButtonPressed);
+        backToMenuButton.GetComponent<Button>().onClick.AddListener(GoToMenuButtonPressed);
         gotoReplayButton.GetComponent<Button>().onClick.AddListener(GoToReplayButtonPressed);
         saveReplayButton.GetComponent<Button>().onClick.AddListener(SaveReplayButtonPressed);
 
@@ -154,7 +157,8 @@ public class GameSystemManager : MonoBehaviour
 
         gameOverText.SetActive(false);
         gotoReplayButton.SetActive(false);
-        playAgainButton.SetActive(false);
+        backToMenuButton.SetActive(false);
+        returnToMenuButton.SetActive(false);
 
         textHistory.SetActive(false);
         chatPanel.SetActive(false);
@@ -226,7 +230,7 @@ public class GameSystemManager : MonoBehaviour
 
             gameOverText.SetActive(true);
             saveReplayButton.SetActive(true);
-            playAgainButton.SetActive(true);
+            returnToMenuButton.SetActive(true);
 
             // Show Messages
             textHistory.SetActive(true);
@@ -246,6 +250,7 @@ public class GameSystemManager : MonoBehaviour
 
             // Show replay panel
             replayStepsPanel.SetActive(true);
+            backToMenuButton.SetActive(true);
         }
     }
 
@@ -258,6 +263,18 @@ public class GameSystemManager : MonoBehaviour
         }
     }
 
+    public void GoToMenuButtonPressed()
+    {
+        ResetBoard();
+
+        // Tell server that client has left the room
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.LeaveRoom + "");
+
+        // Return to the main menu
+        ChangeState(GameStates.MainMenu);
+    }
+
+    // NOT USED AT THE MOMENT
     public void PlayAgainButtonPressed()
     {
         ResetBoard();

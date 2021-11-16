@@ -57,8 +57,6 @@ public class ReplaySystemManager : MonoBehaviour
         for (int i = 0; i < steps.Length; i++)
         {
             // Get the individual move information
-            Debug.Log(replayInfo);
-            Debug.Log(steps.Length);
             string[] info = steps[i].Split('.');
 
             var boardIndex = int.Parse(info[0]);
@@ -87,18 +85,14 @@ public class ReplaySystemManager : MonoBehaviour
         // Remove any previous buttons
         var content = replayStepsPanel.transform.GetChild(0).GetChild(0);
 
-        foreach (var step in replayStepsButtonList)
+        for (int i = content.childCount - 1; i >= 0; i--)
         {
-            Destroy(step);
+            Destroy(content.GetChild(i).gameObject);
         }
-
-        //for (int i = content.childCount - 1; i >= 0; i--)
-        //{
-        //    Destroy(content.GetChild(i).gameObject);
-        //}
 
         // Reset the step instructions list
         replayStepBoardStates.Clear();
+        replayStepsButtonList.Clear();
 
         // Find the correct file name
         string name = "TEST";
@@ -124,6 +118,7 @@ public class ReplaySystemManager : MonoBehaviour
                 GameObject step = Instantiate(replayStepPrefab);
                 step.transform.SetParent(content);
                 var text = step.transform.GetChild(0).GetComponent<Text>();
+                replayStepsButtonList.Add(step);
 
                 // Append the Team name to the text
                 if (team == TeamSignifier.O)
@@ -144,7 +139,7 @@ public class ReplaySystemManager : MonoBehaviour
             // Indicating the state of a specific position on the board
             if (signifier == ReplaySignifiers.BoardState)
             {
-                var childIndex = content.childCount - 1;
+                var childIndex = replayStepBoardStates.Count - 1;
                 var boardIndex = int.Parse(csv[1]);
                 var team = int.Parse(csv[2]);
 
@@ -156,11 +151,11 @@ public class ReplaySystemManager : MonoBehaviour
         sr.Close();
 
         // Add functionality to created Buttons
-        for (int i = 0; i < content.childCount; i++)
+        for (int i = 0; i < replayStepBoardStates.Count; i++)
         {
             int index = i;
-            var replayStep = content.transform.GetChild(index).gameObject;
-            replayStep.GetComponent<Button>().onClick.AddListener(delegate { LoadReplayStep(index); });
+            var replayStep = replayStepsButtonList[index];
+            replayStep.GetComponent<Button>().onClick.AddListener(() => LoadReplayStep(index));// delegate { LoadReplayStep(index); });
         }
     }
 
