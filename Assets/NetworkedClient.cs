@@ -18,6 +18,7 @@ public class NetworkedClient : MonoBehaviour
     int ourClientID;
 
     GameObject gameSystemManager;
+    GameObject replaySystemManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,8 @@ public class NetworkedClient : MonoBehaviour
         {
             if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
+            if (go.GetComponent<ReplaySystemManager>() != null)
+                replaySystemManager = go;
         }
 
         Connect();
@@ -169,6 +172,11 @@ public class NetworkedClient : MonoBehaviour
             // Display the message in the chat
             gameSystemManager.GetComponent<GameSystemManager>().DisplayMessage(csv[1]);
         }
+        else if (signifier == ServerToClientSignifiers.ReplayInformation)
+        {
+            // Tell the ReplaySystemManager to save this information
+            replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
+        }
     }
 
     public bool IsConnected()
@@ -198,6 +206,8 @@ public static class ClientToServerSignifiers
     public const int LeaveRoom = 5;
 
     public const int TextMessage = 6;
+
+    public const int RequestReplay = 7;
 }
 
 public static class ServerToClientSignifiers
@@ -213,6 +223,8 @@ public static class ServerToClientSignifiers
     public const int GameOver = 7;
 
     public const int TextMessage = 8;
+
+    public const int ReplayInformation = 9;
 }
 
 public static class WinStates

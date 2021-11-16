@@ -13,24 +13,21 @@ public class GameSystemManager : MonoBehaviour
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
 
-    GameObject gameOverText, playAgainButton, watchReplayButton;
+    GameObject gameOverText, playAgainButton;
 
     GameObject textHistory, chatPanel;
     GameObject greetButton, ggButton, niceButton, oopsButton;
     GameObject inputMessageField, sendButton;
 
-    GameObject networkedClient;
+    GameObject replayStepsPanel, saveReplayButton, gotoReplayButton;
+
+    GameObject networkedClient, replaySystemManager;
 
     public int OurTeam;
     public GameObject messagePrefab;
 
-    // static GameObject Instance;
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Instance = gameObject;
-
         GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
 
         foreach (GameObject go in allObjects)
@@ -59,8 +56,8 @@ public class GameSystemManager : MonoBehaviour
                 gameOverText = go;
             else if (go.name == "PlayAgainButton")
                 playAgainButton = go;
-            else if (go.name == "WatchReplayButton")
-                watchReplayButton = go;
+            else if (go.name == "GoToReplayButton")
+                gotoReplayButton = go;
             else if (go.name == "TextHistory")
                 textHistory = go;
             else if (go.name == "ChatPanel")
@@ -77,6 +74,12 @@ public class GameSystemManager : MonoBehaviour
                 inputMessageField = go;
             else if (go.name == "SendButton")
                 sendButton = go;
+            else if (go.name == "SaveReplayButton")
+                saveReplayButton = go;
+            else if (go.name == "ReplayPanel")
+                replayStepsPanel = go;
+            else if (go.GetComponent<ReplaySystemManager>() != null)
+                replaySystemManager = go;
         }
 
         submitButton.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
@@ -84,7 +87,8 @@ public class GameSystemManager : MonoBehaviour
         createToggle.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         joinGameRoomButton.GetComponent<Button>().onClick.AddListener(JoinGameRoomButtonPressed);
         playAgainButton.GetComponent<Button>().onClick.AddListener(PlayAgainButtonPressed);
-        watchReplayButton.GetComponent<Button>().onClick.AddListener(WatchReplay);
+        gotoReplayButton.GetComponent<Button>().onClick.AddListener(GoToReplayButtonPressed);
+        saveReplayButton.GetComponent<Button>().onClick.AddListener(SaveReplayButtonPressed);
 
         greetButton.GetComponent<Button>().onClick.AddListener(GreetButtonPressed);
         ggButton.GetComponent<Button>().onClick.AddListener(GGButtonPressed);
@@ -149,7 +153,7 @@ public class GameSystemManager : MonoBehaviour
         textPassordInfo.SetActive(false);
 
         gameOverText.SetActive(false);
-        watchReplayButton.SetActive(false);
+        gotoReplayButton.SetActive(false);
         playAgainButton.SetActive(false);
 
         textHistory.SetActive(false);
@@ -158,6 +162,9 @@ public class GameSystemManager : MonoBehaviour
         ggButton.SetActive(false);
         niceButton.SetActive(false);
         oopsButton.SetActive(false);
+
+        saveReplayButton.SetActive(false);
+        replayStepsPanel.SetActive(false);
 
         // tictactoeSquareButton.SetActive(false);
         foreach (var square in tictactoeSquareButtonList)
@@ -218,7 +225,7 @@ public class GameSystemManager : MonoBehaviour
             }
 
             gameOverText.SetActive(true);
-            watchReplayButton.SetActive(true);
+            saveReplayButton.SetActive(true);
             playAgainButton.SetActive(true);
 
             // Show Messages
@@ -228,6 +235,17 @@ public class GameSystemManager : MonoBehaviour
             ggButton.SetActive(true);
             niceButton.SetActive(true);
             oopsButton.SetActive(true);
+        }
+        else if (newState == GameStates.Replay)
+        {
+            // Show TicTacToe board
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.SetActive(true);
+            }
+
+            // Show replay panel
+            replayStepsPanel.SetActive(true);
         }
     }
 
@@ -261,11 +279,28 @@ public class GameSystemManager : MonoBehaviour
         ChangeState(GameStates.WaitingInQueueForOtherPlayer);
     }
 
-    public void WatchReplay()
+    public void GoToReplayButtonPressed()
     {
         ResetBoard();
 
-        // TODO: implement Replay
+        // Tell server client has left the room
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.LeaveRoom + "");
+
+        // Load the Replay information
+        replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation();
+
+        // Change State to replay scene
+        ChangeState(GameStates.Replay);
+    }
+    
+    public void SaveReplayButtonPressed()
+    {
+        // Tell server to save the replay
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplay + "");
+
+        // Hide Save Button, Show Go To Replay Button
+        saveReplayButton.SetActive(false);
+        gotoReplayButton.SetActive(true);
     }
 
     public void SetWinLoss(int winLoss)
@@ -408,4 +443,6 @@ static public class GameStates
     public const int TicTacToe = 4;
 
     public const int GameEnd = 5;
+
+    public const int Replay = 6;
 }
