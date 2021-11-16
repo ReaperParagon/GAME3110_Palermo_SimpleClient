@@ -19,7 +19,7 @@ public class GameSystemManager : MonoBehaviour
     GameObject greetButton, ggButton, niceButton, oopsButton;
     GameObject inputMessageField, sendButton;
 
-    GameObject replayStepsPanel, saveReplayButton, gotoReplayButton;
+    GameObject replayStepsPanel, saveReplayButton, gotoReplayButton, replayDropDown;
 
     GameObject networkedClient, replaySystemManager;
 
@@ -80,6 +80,8 @@ public class GameSystemManager : MonoBehaviour
                 saveReplayButton = go;
             else if (go.name == "ReplayPanel")
                 replayStepsPanel = go;
+            else if (go.name == "ReplayDropDown")
+                replayDropDown = go;
             else if (go.GetComponent<ReplaySystemManager>() != null)
                 replaySystemManager = go;
         }
@@ -99,14 +101,12 @@ public class GameSystemManager : MonoBehaviour
         oopsButton.GetComponent<Button>().onClick.AddListener(OopsButtonPressed);
         sendButton.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
 
-
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
             int index = i;
             tictactoeSquareButtonList.Add(tictactoeBoard.transform.GetChild(index).gameObject);
             tictactoeSquareButtonList[i].GetComponent<Button>().onClick.AddListener(delegate { TicTacToeSquareButtonPressed(index); } );
         }
-
 
         ChangeState(GameStates.LoginMenu);
     }
@@ -169,6 +169,7 @@ public class GameSystemManager : MonoBehaviour
 
         saveReplayButton.SetActive(false);
         replayStepsPanel.SetActive(false);
+        replayDropDown.SetActive(false);
 
         // tictactoeSquareButton.SetActive(false);
         foreach (var square in tictactoeSquareButtonList)
@@ -251,6 +252,21 @@ public class GameSystemManager : MonoBehaviour
             // Show replay panel
             replayStepsPanel.SetActive(true);
             backToMenuButton.SetActive(true);
+            replayDropDown.SetActive(true);
+
+            // Update Replay Names
+            replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplays();
+
+            // Add Replays to Dropdown
+            Dropdown dropdown = replayDropDown.GetComponent<Dropdown>();
+            dropdown.options.Clear();
+            foreach (string option in replaySystemManager.GetComponent<ReplaySystemManager>().replayNames)
+            {
+                dropdown.options.Add(new Dropdown.OptionData(option));
+            }
+
+            // Change Replay dropdown to the latest replay
+            dropdown.value = dropdown.options.Count - 1;
         }
     }
 
@@ -304,7 +320,7 @@ public class GameSystemManager : MonoBehaviour
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.LeaveRoom + "");
 
         // Load the Replay information
-        replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation();
+        replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation(replaySystemManager.GetComponent<ReplaySystemManager>().lastIndexUsed);
 
         // Change State to replay scene
         ChangeState(GameStates.Replay);
@@ -444,6 +460,24 @@ public class GameSystemManager : MonoBehaviour
         // Scroll to bottom on message recieved
         scrollbar.value = 0;
     }
+}
+
+public class NameAndIndex
+{
+    public string name;
+    public int index;
+
+    public NameAndIndex(int Index, string Name)
+    {
+        index = Index;
+        name = Name;
+    }
+}
+
+static public class ReplayReadSignifier
+{
+    public const int LastUsedIndexSignifier = 1;
+    public const int IndexAndNameSignifier = 2;
 }
 
 static public class TurnSignifier

@@ -9,10 +9,17 @@ public class ReplaySystemManager : MonoBehaviour
     public GameObject replayStepPrefab;
 
     public GameObject replayStepsPanel;
+    public GameObject replayDropDown;
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
     List<GameObject> replayStepsButtonList = new List<GameObject>();
     List<string> replayStepBoardStates = new List<string>();
+
+    const string IndexFilePath = "replayIndex.txt";
+    public int lastIndexUsed;
+    public string saveReplayName;
+    public List<string> replayNames;
+    LinkedList<NameAndIndex> replayNameAndIndices;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +32,11 @@ public class ReplaySystemManager : MonoBehaviour
                 replayStepsPanel = go;
             else if (go.name == "TicTacToeBoard")
                 tictactoeBoard = go;
+            else if (go.name == "ReplayDropDown")
+                replayDropDown = go;
         }
+
+        replayDropDown.GetComponent<Dropdown>().onValueChanged.AddListener(delegate { LoadDropDownChanged(); });
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -33,6 +44,69 @@ public class ReplaySystemManager : MonoBehaviour
             tictactoeSquareButtonList.Add(tictactoeBoard.transform.GetChild(index).gameObject);
         }
 
+        LoadReplays();
+
+    }
+
+    public void LoadReplays()
+    {
+        replayNameAndIndices = new LinkedList<NameAndIndex>();
+
+        if (File.Exists(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath))
+        {
+            StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
+
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                Debug.Log(line);
+
+                string[] csv = line.Split(',');
+                int signifier = int.Parse(csv[0]);
+
+                if (signifier == ReplayReadSignifier.LastUsedIndexSignifier)
+                {
+                    lastIndexUsed = int.Parse(csv[1]);
+                }
+                else if (signifier == ReplayReadSignifier.IndexAndNameSignifier)
+                {
+                    replayNameAndIndices.AddLast(new NameAndIndex(int.Parse(csv[1]), csv[2]));
+                }
+            }
+
+            sr.Close();
+        }
+
+        replayNames = new List<string>();
+
+        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
+        {
+            replayNames.Add(nameAndIndex.name);
+        }
+
+    }
+
+    public void LoadDropDownChanged()
+    {
+        int menuIndex = replayDropDown.GetComponent<Dropdown>().value;
+        List<Dropdown.OptionData> menuOptions = replayDropDown.GetComponent<Dropdown>().options;
+        string value = menuOptions[menuIndex].text;
+        ReplayDropDownChanged(value);
+    }
+
+    public void ReplayDropDownChanged(string selectedName)
+    {
+        ResetBoard();
+
+        int indexToLoad = -1;
+
+        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
+        {
+            if (nameAndIndex.name == selectedName)
+                indexToLoad = nameAndIndex.index;
+        }
+
+        LoadReplayInformation(indexToLoad);
     }
 
     public void SaveReplay(string replayInfo)
@@ -49,10 +123,12 @@ public class ReplaySystemManager : MonoBehaviour
         }
 
         // Get / Create a new name for the saved file
-        string name = "TEST";
+        lastIndexUsed++;
+        saveReplayName = lastIndexUsed.ToString();
+        replayNameAndIndices.AddLast(new NameAndIndex(lastIndexUsed, saveReplayName));
 
         // Save information to a local file
-        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + name + ".txt");
+        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + lastIndexUsed + ".txt");
 
         for (int i = 0; i < steps.Length; i++)
         {
@@ -78,9 +154,24 @@ public class ReplaySystemManager : MonoBehaviour
         sw.Close();
 
         // Add file to a list of replay files
+        SaveReplayToList();
     }
 
-    public void LoadReplayInformation()
+    public void SaveReplayToList()
+    {
+        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
+
+        sw.WriteLine(ReplayReadSignifier.LastUsedIndexSignifier + "," + lastIndexUsed);
+
+        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
+        {
+            sw.WriteLine(ReplayReadSignifier.IndexAndNameSignifier + "," + nameAndIndex.index + "," + nameAndIndex.name);
+        }
+
+        sw.Close();
+    }
+
+    public void LoadReplayInformation(int indexToLoad)
     {
         // Remove any previous buttons
         var content = replayStepsPanel.transform.GetChild(0).GetChild(0);
@@ -94,11 +185,8 @@ public class ReplaySystemManager : MonoBehaviour
         replayStepBoardStates.Clear();
         replayStepsButtonList.Clear();
 
-        // Find the correct file name
-        string name = "TEST";
-
         // Create new replay step buttons
-        StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + name + ".txt");
+        StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + indexToLoad + ".txt");
 
         string line;
         while((line = sr.ReadLine()) != null)
@@ -178,6 +266,14 @@ public class ReplaySystemManager : MonoBehaviour
             else if (team == TeamSignifier.None)
                 tictactoeSquareButtonList[boardIndex].transform.GetChild(0).GetComponent<Text>().text = "";
 
+        }
+    }
+
+    public void ResetBoard()
+    {
+        for (int i = 0; i < tictactoeSquareButtonList.Count; i++)
+        {
+            tictactoeSquareButtonList[i].transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
