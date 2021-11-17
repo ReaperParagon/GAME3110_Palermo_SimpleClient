@@ -15,11 +15,11 @@ E:/Unity Projects/GBC2021/MultiplayerSystems/GAME3110_Palermo_SimpleClient
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62337
+58829
 Successfully changed project path to: E:/Unity Projects/GBC2021/MultiplayerSystems/GAME3110_Palermo_SimpleClient
 E:/Unity Projects/GBC2021/MultiplayerSystems/GAME3110_Palermo_SimpleClient
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 58.54 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 47.60 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.2.0f1 (3721df5a8b28)
 [Subsystems] Discovering subsystems at path D:/Program Files/2020.2.0f1/Editor/Data/Resources/UnitySubsystems
@@ -35,138 +35,330 @@ Initialize mono
 Mono path[0] = 'D:/Program Files/2020.2.0f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Program Files/2020.2.0f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'D:/Program Files/2020.2.0f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56564
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56532
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Program Files/2020.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: D:/Program Files/2020.2.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003163 seconds.
+Registered in 0.002008 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 53.33 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 40.47 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  5.603 seconds
+- Completed reload, in  2.720 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001354 seconds.
+Registered in 0.001044 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 50.32 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 42.39 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  3.114 seconds
+- Completed reload, in  1.268 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1790 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 84.4 MB.
 System memory in use after: 84.4 MB.
 
 Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2231.
-Total: 3.630700 ms (FindLiveObjects: 0.992900 ms CreateObjectMapping: 0.222800 ms MarkObjects: 2.268300 ms  DeleteObjects: 0.144700 ms)
+Total: 3.047600 ms (FindLiveObjects: 0.247800 ms CreateObjectMapping: 0.379500 ms MarkObjects: 2.122300 ms  DeleteObjects: 0.296600 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/ReplaySystemManager.cs
-  artifactKey: Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ReplaySystemManager.cs using Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b49bf7577dc93899d327e3cbaccdaf71') in 1.465698 seconds
-  Import took 1.737440 seconds .
+  path: Assets/GameRoomPrefab.prefab
+  artifactKey: Guid(447787fe43e02a94fa8e464cc00e5389) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameRoomPrefab.prefab using Guid(447787fe43e02a94fa8e464cc00e5389) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0583fff2fc3ef51820eec81f53f50332') in 0.109206 seconds
+  Import took 0.118474 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 86.697341 seconds.
-  path: Assets/ReplaySystemManager.cs
-  artifactKey: Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ReplaySystemManager.cs using Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c2cd581e2869d979bd1d1c2521156fa') in 0.009882 seconds
-  Import took 0.020426 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.777544 seconds.
-  path: Assets/ReplaySystemManager.cs
-  artifactKey: Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ReplaySystemManager.cs using Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '268d98309cc2a0686ae949ead930d60e') in 0.004070 seconds
-  Import took 0.010735 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 33.767461 seconds.
-  path: Assets/ReplaySystemManager.cs
-  artifactKey: Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ReplaySystemManager.cs using Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9657634d6140875cd553e99e8a645b7') in 0.012751 seconds
-  Import took 0.022355 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 75.506339 seconds.
-  path: Assets/ReplaySystemManager.cs
-  artifactKey: Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ReplaySystemManager.cs using Guid(39ef783c7fd5b7a4e9f27a662b5552d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ba68b05506c374a08ca22054e372c9a') in 0.018345 seconds
-  Import took 0.035512 seconds .
+  Time since last request: 5.344084 seconds.
+  path: Assets/NetworkedClient.cs
+  artifactKey: Guid(f5aa6bcea7dfdc546bd7e49974308961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/NetworkedClient.cs using Guid(f5aa6bcea7dfdc546bd7e49974308961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdd313cc59f9c86b45b5cd53bb1cab47') in 0.011240 seconds
+  Import took 0.020349 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004845 seconds.
+Registered in 0.004561 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.75 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.49 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.227 seconds
+- Completed reload, in  1.218 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 84.5 MB.
 System memory in use after: 84.5 MB.
 
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2234.
-Total: 4.385900 ms (FindLiveObjects: 0.243200 ms CreateObjectMapping: 0.152200 ms MarkObjects: 3.867800 ms  DeleteObjects: 0.120700 ms)
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 2236.
+Total: 9.467800 ms (FindLiveObjects: 0.192900 ms CreateObjectMapping: 0.077200 ms MarkObjects: 1.937600 ms  DeleteObjects: 7.258900 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.020344 seconds.
+Registered in 0.007098 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 6.80 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  4.779 seconds
+- Completed reload, in  2.018 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.56 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.58 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 84.6 MB.
 System memory in use after: 84.6 MB.
 
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2237.
-Total: 10.462000 ms (FindLiveObjects: 0.376200 ms CreateObjectMapping: 0.167400 ms MarkObjects: 9.741500 ms  DeleteObjects: 0.147200 ms)
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2239.
+Total: 2.974500 ms (FindLiveObjects: 0.279700 ms CreateObjectMapping: 0.179400 ms MarkObjects: 2.376200 ms  DeleteObjects: 0.137000 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.543141 seconds.
+Registered in 0.001293 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.894 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.41 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 84.7 MB.
+System memory in use after: 84.7 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2242.
+Total: 5.421900 ms (FindLiveObjects: 1.241500 ms CreateObjectMapping: 0.847000 ms MarkObjects: 2.907400 ms  DeleteObjects: 0.423700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001271 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.44 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.041 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.50 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 84.8 MB.
+System memory in use after: 84.8 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2245.
+Total: 4.090800 ms (FindLiveObjects: 0.583500 ms CreateObjectMapping: 0.224700 ms MarkObjects: 3.151000 ms  DeleteObjects: 0.128700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005385 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.46 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  5.778 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.88 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 84.9 MB.
+System memory in use after: 84.9 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2248.
+Total: 11.495300 ms (FindLiveObjects: 2.145700 ms CreateObjectMapping: 0.342200 ms MarkObjects: 8.877900 ms  DeleteObjects: 0.127500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.000968 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.79 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.649 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.27 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.0 MB.
+System memory in use after: 85.0 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2251.
+Total: 23.737200 ms (FindLiveObjects: 0.860400 ms CreateObjectMapping: 1.635100 ms MarkObjects: 20.571800 ms  DeleteObjects: 0.667400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007976 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.41 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in 10.181 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 4.09 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.1 MB.
+System memory in use after: 85.1 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2254.
+Total: 13.855300 ms (FindLiveObjects: 0.424300 ms CreateObjectMapping: 3.870600 ms MarkObjects: 9.424600 ms  DeleteObjects: 0.133500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002101 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 4.44 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in 15.048 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.47 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.2 MB.
+System memory in use after: 85.2 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2257.
+Total: 4.155000 ms (FindLiveObjects: 0.288400 ms CreateObjectMapping: 0.184600 ms MarkObjects: 3.549500 ms  DeleteObjects: 0.130400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006117 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.67 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  9.551 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.70 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.3 MB.
+System memory in use after: 85.3 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2260.
+Total: 17.535800 ms (FindLiveObjects: 0.598900 ms CreateObjectMapping: 1.567900 ms MarkObjects: 15.225600 ms  DeleteObjects: 0.140400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007555 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 6.46 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in 12.650 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 4.94 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.4 MB.
+System memory in use after: 85.4 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2263.
+Total: 12.262600 ms (FindLiveObjects: 0.879800 ms CreateObjectMapping: 0.594900 ms MarkObjects: 9.653000 ms  DeleteObjects: 1.132100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001480 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.190 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.45 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.4 MB.
+System memory in use after: 85.4 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2266.
+Total: 5.004200 ms (FindLiveObjects: 0.498900 ms CreateObjectMapping: 1.633000 ms MarkObjects: 2.752000 ms  DeleteObjects: 0.118600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.291471 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
@@ -176,45 +368,455 @@ Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  5.035 seconds
+- Completed reload, in  4.684 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.69 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.41 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 84.7 MB.
-System memory in use after: 84.7 MB.
+System memory in use before: 85.5 MB.
+System memory in use after: 85.5 MB.
 
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2240.
-Total: 5.023000 ms (FindLiveObjects: 0.297900 ms CreateObjectMapping: 0.250500 ms MarkObjects: 4.350600 ms  DeleteObjects: 0.121800 ms)
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2269.
+Total: 6.025700 ms (FindLiveObjects: 0.450000 ms CreateObjectMapping: 2.333300 ms MarkObjects: 3.108300 ms  DeleteObjects: 0.131900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 2493.923856 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.053469 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.058374 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.490034 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001545 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010915 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.033351 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003866 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010385 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.025019 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001628 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012617 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.022139 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001715 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011640 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.022293 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002105 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.014272 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.045008 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002757 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010198 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.019382 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001340 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012345 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.054556 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001719 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.007419 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.115367 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002155 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.029648 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020531 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003201 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.032492 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.014891 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002771 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.009424 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020893 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002282 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012531 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.024959 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002926 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.017193 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.018457 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004882 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012368 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017386 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002520 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011727 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.034364 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002877 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010797 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.025517 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002083 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.016127 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.016957 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002891 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017544 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004083 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.013288 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028200 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001881 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.013841 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020054 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002467 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010095 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020320 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002150 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.009351 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.029931 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001953 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012010 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.021159 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002868 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012110 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.016404 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003618 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011885 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.021054 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003448 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.026585 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.007336 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.014937 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017186 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.005855 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020188 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002321 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011182 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.034322 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001476 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011214 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.023958 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001697 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010970 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.022798 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004387 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.013543 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017037 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002779 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.013283 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.023068 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004708 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012196 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.019549 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001099 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.015369 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.016227 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004702 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012906 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.030694 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001795 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011526 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.027498 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001729 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012660 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.018115 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003337 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.011794 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.019393 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.005232 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.010915 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017617 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000988 seconds
+  ERROR: Build asset version error: assets/5.txt in SourceAssetDB has modification time of '2021-11-17T01:52:04.501105Z' while content on disk has modification time of '2021-11-17T01:53:45.9728853Z'
+  Import took 0.012460 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.044236 seconds.
+  path: Assets/5.txt
+  artifactKey: Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/5.txt using Guid(3dc6fcd63747986418d2d198fd951f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6129cfb4d8dee9a825816c3bb33af16e') in 0.020812 seconds
+  Import took 0.053358 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.049398 seconds.
+  path: Assets/4.txt
+  artifactKey: Guid(db51bacd785b3374d93e81bcb6ccd570) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/4.txt using Guid(db51bacd785b3374d93e81bcb6ccd570) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63b80673169c003738ba723f4af1bb11') in 0.026679 seconds
+  Import took 0.033498 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.945093 seconds.
+  path: Assets/3.txt
+  artifactKey: Guid(769dbf56779cb304a9d89de92210d36f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/3.txt using Guid(769dbf56779cb304a9d89de92210d36f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca4a65a3d0f4c049ac99fc8bdcf6fb5d') in 0.030896 seconds
+  Import took 0.036821 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.548033 seconds.
+  path: Assets/replayIndex.txt
+  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12056acf0bc57ce37428ed7ade6a5bf1') in 0.025335 seconds
+  Import took 0.032411 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001459 seconds.
+Registered in 0.005161 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.45 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  3.799 seconds
+- Completed reload, in  2.772 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.67 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 84.8 MB.
-System memory in use after: 84.8 MB.
+System memory in use before: 85.6 MB.
+System memory in use after: 85.6 MB.
 
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2243.
-Total: 6.718900 ms (FindLiveObjects: 0.271300 ms CreateObjectMapping: 0.162000 ms MarkObjects: 6.152100 ms  DeleteObjects: 0.131200 ms)
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2272.
+Total: 5.603000 ms (FindLiveObjects: 0.283200 ms CreateObjectMapping: 0.159900 ms MarkObjects: 2.791100 ms  DeleteObjects: 2.366400 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.976469 seconds.
+Registered in 0.009880 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
@@ -224,270 +826,14 @@ Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in 31.645 seconds
+- Completed reload, in  7.917 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.59 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 23.29 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 84.9 MB.
-System memory in use after: 84.9 MB.
+System memory in use before: 85.7 MB.
+System memory in use after: 85.7 MB.
 
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2246.
-Total: 8.003400 ms (FindLiveObjects: 0.738900 ms CreateObjectMapping: 0.184700 ms MarkObjects: 6.945900 ms  DeleteObjects: 0.131700 ms)
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2275.
+Total: 6.817000 ms (FindLiveObjects: 0.417100 ms CreateObjectMapping: 0.171300 ms MarkObjects: 5.998100 ms  DeleteObjects: 0.228000 ms)
 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006546 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.47 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  8.550 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 3.18 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 85.0 MB.
-System memory in use after: 85.0 MB.
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2249.
-Total: 7.753300 ms (FindLiveObjects: 0.409200 ms CreateObjectMapping: 0.605100 ms MarkObjects: 6.604100 ms  DeleteObjects: 0.132600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006004 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.22 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  5.592 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.45 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 85.0 MB.
-System memory in use after: 85.0 MB.
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2252.
-Total: 8.910200 ms (FindLiveObjects: 0.384600 ms CreateObjectMapping: 0.173300 ms MarkObjects: 8.225200 ms  DeleteObjects: 0.124500 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 451.454929 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.054653 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:12.4872764Z'
-  Import took 0.081431 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.075883 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.007327 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:12.4872764Z'
-  Import took 0.027598 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.153315 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000925 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.034025 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.145738 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.012007 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.097263 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.138730 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000960 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.021667 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.340354 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001112 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.068403 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.123187 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002991 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.042696 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.076747 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001097 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.032074 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.120152 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001500 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.018583 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.124782 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.005752 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.030252 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.120293 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000859 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.018578 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.111177 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000845 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.026836 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.119274 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001852 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.019345 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.112906 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000907 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.026847 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.112606 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000964 seconds
-  ERROR: Build asset version error: assets/replayindex.txt in SourceAssetDB has modification time of '2021-11-16T22:06:43.7531815Z' while content on disk has modification time of '2021-11-16T22:09:14.8203543Z'
-  Import took 0.033862 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.069457 seconds.
-  path: Assets/replayIndex.txt
-  artifactKey: Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/replayIndex.txt using Guid(d8898b4038cdb2948a7f7cb310c8296a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80317d0cc17a59d5f86206831a6fdbf6') in 0.020710 seconds
-  Import took 0.035423 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.896722 seconds.
-  path: Assets/9.txt
-  artifactKey: Guid(fd2bf26c9545f6c46aa49c9776c1c618) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/9.txt using Guid(fd2bf26c9545f6c46aa49c9776c1c618) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc9312805c445347d98fb83ac9d0f619') in 0.035331 seconds
-  Import took 0.100996 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001326 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 4.06 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  3.871 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 85.1 MB.
-System memory in use after: 85.1 MB.
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2255.
-Total: 6.260300 ms (FindLiveObjects: 0.523100 ms CreateObjectMapping: 0.194800 ms MarkObjects: 5.402200 ms  DeleteObjects: 0.137600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.018915 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 4.82 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  4.680 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.47 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 85.2 MB.
-System memory in use after: 85.2 MB.
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2258.
-Total: 10.825600 ms (FindLiveObjects: 0.323100 ms CreateObjectMapping: 0.195600 ms MarkObjects: 7.177000 ms  DeleteObjects: 3.127600 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 136.938720 seconds.
-  path: Assets/TEST.txt
-  artifactKey: Guid(965ed36a42e7cd940a2494be43ead6cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/TEST.txt using Guid(965ed36a42e7cd940a2494be43ead6cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06b9ca8ffa864508ca4b521c7f6e0ffb') in 0.132343 seconds
-  Import took 0.158295 seconds .
-
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file

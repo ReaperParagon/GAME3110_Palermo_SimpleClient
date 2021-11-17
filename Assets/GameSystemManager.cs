@@ -9,7 +9,9 @@ public class GameSystemManager : MonoBehaviour
     GameObject submitButton, userNameInput, passwordInput, createToggle, loginToggle;
     GameObject textNameInfo, textPassordInfo;
 
-    GameObject joinGameRoomButton;
+    GameObject joinGameRoomButton, viewReplayButton, refreshRoomsButton;
+    GameObject gameRoomPanel;
+
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
 
@@ -25,6 +27,7 @@ public class GameSystemManager : MonoBehaviour
 
     public int OurTeam;
     public GameObject messagePrefab;
+    public GameObject gameRoomPrefab;
 
     void Start()
     {
@@ -82,6 +85,12 @@ public class GameSystemManager : MonoBehaviour
                 replayStepsPanel = go;
             else if (go.name == "ReplayDropDown")
                 replayDropDown = go;
+            else if (go.name == "ViewReplayButton")
+                viewReplayButton = go;
+            else if (go.name == "RefreshGameRoomsButton")
+                refreshRoomsButton = go;
+            else if (go.name == "GameRoomPanel")
+                gameRoomPanel = go;
             else if (go.GetComponent<ReplaySystemManager>() != null)
                 replaySystemManager = go;
         }
@@ -100,6 +109,9 @@ public class GameSystemManager : MonoBehaviour
         niceButton.GetComponent<Button>().onClick.AddListener(NiceButtonPressed);
         oopsButton.GetComponent<Button>().onClick.AddListener(OopsButtonPressed);
         sendButton.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
+
+        viewReplayButton.GetComponent<Button>().onClick.AddListener(ViewReplaysButtonPressed);
+        refreshRoomsButton.GetComponent<Button>().onClick.AddListener(RefreshRooms);
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -146,6 +158,10 @@ public class GameSystemManager : MonoBehaviour
     public void ChangeState(int newState)
     {
         joinGameRoomButton.SetActive(false);
+        viewReplayButton.SetActive(false);
+        refreshRoomsButton.SetActive(false);
+        gameRoomPanel.SetActive(false);
+
         submitButton.SetActive(false);
         userNameInput.SetActive(false);
         passwordInput.SetActive(false);
@@ -190,6 +206,12 @@ public class GameSystemManager : MonoBehaviour
         else if (newState == GameStates.MainMenu)
         {
             joinGameRoomButton.SetActive(true);
+            viewReplayButton.SetActive(true);
+            refreshRoomsButton.SetActive(true);
+            gameRoomPanel.SetActive(true);
+
+            // Refresh Rooms
+            RefreshRooms();
         }
         else if (newState == GameStates.WaitingInQueueForOtherPlayer)
         {
@@ -222,6 +244,11 @@ public class GameSystemManager : MonoBehaviour
         else if (newState == GameStates.GameEnd)
         {
             // Show Game end stuff
+            // Disable squares
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.GetComponent<Button>().interactable = false;
+            }
 
             // Set TicTacToe stuff to active
             foreach (var square in tictactoeSquareButtonList)
@@ -312,8 +339,21 @@ public class GameSystemManager : MonoBehaviour
         ChangeState(GameStates.WaitingInQueueForOtherPlayer);
     }
 
+    public void RefreshRooms()
+    {
+        // Ask server for room list
+
+        // Add rooms to room panel
+    }
+
     public void GoToReplayButtonPressed()
     {
+        // Disable squares
+        foreach (var square in tictactoeSquareButtonList)
+        {
+            square.GetComponent<Button>().interactable = false;
+        }
+
         ResetBoard();
 
         // Tell server client has left the room
@@ -326,6 +366,23 @@ public class GameSystemManager : MonoBehaviour
         ChangeState(GameStates.Replay);
     }
     
+    public void ViewReplaysButtonPressed()
+    {
+        // Disable squares
+        foreach (var square in tictactoeSquareButtonList)
+        {
+            square.GetComponent<Button>().interactable = false;
+        }
+
+        ResetBoard();
+
+        // Load the Replay information
+        replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation(replaySystemManager.GetComponent<ReplaySystemManager>().lastIndexUsed);
+
+        // Change State to replay scene
+        ChangeState(GameStates.Replay);
+    }
+
     public void SaveReplayButtonPressed()
     {
         // Tell server to save the replay
