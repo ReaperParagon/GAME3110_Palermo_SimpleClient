@@ -11,6 +11,7 @@ public class GameSystemManager : MonoBehaviour
 
     GameObject joinGameRoomButton, viewReplayButton, refreshRoomsButton;
     GameObject gameRoomPanel;
+    List<GameObject> gameRoomButtonList = new List<GameObject>();
 
     GameObject tictactoeBoard;
     List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
@@ -111,7 +112,7 @@ public class GameSystemManager : MonoBehaviour
         sendButton.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
 
         viewReplayButton.GetComponent<Button>().onClick.AddListener(ViewReplaysButtonPressed);
-        refreshRoomsButton.GetComponent<Button>().onClick.AddListener(RefreshRooms);
+        refreshRoomsButton.GetComponent<Button>().onClick.AddListener(AskForRooms);
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -211,7 +212,7 @@ public class GameSystemManager : MonoBehaviour
             gameRoomPanel.SetActive(true);
 
             // Refresh Rooms
-            RefreshRooms();
+            AskForRooms();
         }
         else if (newState == GameStates.WaitingInQueueForOtherPlayer)
         {
@@ -240,6 +241,12 @@ public class GameSystemManager : MonoBehaviour
             ggButton.SetActive(true);
             niceButton.SetActive(true);
             oopsButton.SetActive(true);
+
+            // If an observer, show return to menu button
+            if (OurTeam == TeamSignifier.None)
+            {
+                returnToMenuButton.SetActive(true);
+            }
         }
         else if (newState == GameStates.GameEnd)
         {
@@ -339,11 +346,49 @@ public class GameSystemManager : MonoBehaviour
         ChangeState(GameStates.WaitingInQueueForOtherPlayer);
     }
 
-    public void RefreshRooms()
+    public void AskForRooms()
     {
-        // Ask server for room list
+        // Remove all rooms from room panel
+        var content = gameRoomPanel.transform.GetChild(0).GetChild(0);
 
-        // Add rooms to room panel
+        for (int i = content.childCount - 1; i >= 0; i--)
+        {
+            Destroy(content.GetChild(i).gameObject);
+        }
+
+        // Reset the room buttons list
+        gameRoomButtonList.Clear();
+
+        // Ask server for room list
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.GetServerList + ",");
+    }
+
+    public void CreateRoom(int index, int spectatorCount)
+    {
+        // Adds a room to room panel
+        var content = gameRoomPanel.transform.GetChild(0).GetChild(0);
+
+        // Add a child to the content
+        GameObject room = Instantiate(gameRoomPrefab);
+        room.transform.SetParent(content);
+        var text = room.transform.GetChild(0).GetComponent<Text>();
+        gameRoomButtonList.Add(room);
+
+        // Append information to the text
+        text.text = "Game Room " + (index + 1);
+
+        // Append the spectator count
+        text.text += " | Watching: " + spectatorCount;
+
+        // Add functionality to created Button
+        var spectateButton = room.transform.GetChild(1).GetComponent<Button>();
+        spectateButton.onClick.AddListener(delegate { JoinRoomAsObserver(index); } );
+    }
+
+    private void JoinRoomAsObserver(int index)
+    {
+        // Send Message to Server to join the room as an observer
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.SpectateGame + "," + index);
     }
 
     public void GoToReplayButtonPressed()
@@ -395,13 +440,13 @@ public class GameSystemManager : MonoBehaviour
 
     public void SetWinLoss(int winLoss)
     {
-        if (winLoss == WinStates.Win)
+        if (winLoss == WinStates.OsWin)
         {
-            gameOverText.GetComponent<Text>().text = "You Won!";
+            gameOverText.GetComponent<Text>().text = "Team O Wins";
         }
-        else if (winLoss == WinStates.Loss)
+        else if (winLoss == WinStates.XsWin)
         {
-            gameOverText.GetComponent<Text>().text = "You Lost...";
+            gameOverText.GetComponent<Text>().text = "Team X Wins";
         }
         else if (winLoss == WinStates.Tie)
         {
@@ -411,6 +456,18 @@ public class GameSystemManager : MonoBehaviour
 
     public void SetTurn(int turn)
     {
+        // If we are an observer and not on a team, no need to check other things
+        if (OurTeam == TeamSignifier.None)
+        {
+            // Disable squares
+            foreach (var square in tictactoeSquareButtonList)
+            {
+                square.GetComponent<Button>().interactable = false;
+            }
+
+            return;
+        }
+
         if (turn == TurnSignifier.MyTurn)
         {
             // Enable squares
@@ -541,6 +598,7 @@ static public class TurnSignifier
 {
     public const int MyTurn = 0;
     public const int TheirTurn = 1;
+    public const int Observer = 2;
 }
 static public class GameStates
 {

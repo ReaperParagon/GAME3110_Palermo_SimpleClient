@@ -177,6 +177,14 @@ public class NetworkedClient : MonoBehaviour
             // Tell the ReplaySystemManager to save this information
             replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
         }
+        else if (signifier == ServerToClientSignifiers.ServerList)
+        {
+            int roomID = int.Parse(csv[1]);
+            int observerCount = int.Parse(csv[2]);
+
+            // Add the servers to the main menu's list
+            gameSystemManager.GetComponent<GameSystemManager>().CreateRoom(roomID, observerCount);
+        }
     }
 
     public bool IsConnected()
@@ -208,6 +216,8 @@ public static class ClientToServerSignifiers
     public const int TextMessage = 6;
 
     public const int RequestReplay = 7;
+    public const int GetServerList = 8;
+    public const int SpectateGame = 9;
 }
 
 public static class ServerToClientSignifiers
@@ -225,12 +235,14 @@ public static class ServerToClientSignifiers
     public const int TextMessage = 8;
 
     public const int ReplayInformation = 9;
+
+    public const int ServerList = 10;
 }
 
 public static class WinStates
 {
     public const int ContinuePlay = 0;
-    public const int Win = 1;
-    public const int Loss = 2;
+    public const int OsWin = 1;
+    public const int XsWin = 2;
     public const int Tie = 3;
 }

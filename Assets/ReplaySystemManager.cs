@@ -137,10 +137,9 @@ public class ReplaySystemManager : MonoBehaviour
 
             var boardIndex = int.Parse(info[0]);
             var team = int.Parse(info[1]);
-            var time = "TIME";
 
             // Write the move information
-            sw.WriteLine(ReplaySignifiers.MoveInformation + "," + team + "," + time + "," + boardIndex + ",");
+            sw.WriteLine(ReplaySignifiers.MoveInformation + "," + team + "," + boardIndex + ",");
 
             // Write the board state information after adding info to board state array
             boardState[boardIndex] = team;
@@ -188,6 +187,8 @@ public class ReplaySystemManager : MonoBehaviour
         // Create new replay step buttons
         StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + indexToLoad + ".txt");
 
+        int turnNumber = 0;
+
         string line;
         while((line = sr.ReadLine()) != null)
         {
@@ -199,8 +200,7 @@ public class ReplaySystemManager : MonoBehaviour
             if (signifier == ReplaySignifiers.MoveInformation)
             {
                 var team = int.Parse(csv[1]);
-                var time = csv[2];
-                var move = csv[3];
+                var move = int.Parse(csv[2]);
 
                 // Add a child to the content
                 GameObject step = Instantiate(replayStepPrefab);
@@ -210,15 +210,12 @@ public class ReplaySystemManager : MonoBehaviour
 
                 // Append the Team name to the text
                 if (team == TeamSignifier.O)
-                    text.text = "Team O: ";
+                    text.text = "Turn " + (++turnNumber) + " | Team O: ";
                 else if (team == TeamSignifier.X)
-                    text.text = "Team X: ";
+                    text.text = "Turn " + (++turnNumber) + " | Team X: ";
 
                 // Append the current move to the text
-                text.text += move;
-
-                // Append the time taken to the text
-                text.text += " - " + time.ToString() + "s";
+                text.text += GetMoveFromNumber(move);
 
                 // Create board state
                 replayStepBoardStates.Add("");
@@ -275,6 +272,39 @@ public class ReplaySystemManager : MonoBehaviour
         {
             tictactoeSquareButtonList[i].transform.GetChild(0).GetComponent<Text>().text = "";
         }
+    }
+
+    private string GetMoveFromNumber(int index)
+    {
+        string tile;
+
+        // Top Row
+        if (index < 3)
+            tile = "Top ";
+        else
+        // Bottom Row
+        if (index > 5)
+            tile = "Bottom ";
+        else
+        // Middle
+            tile = "Middle ";
+
+        int col = index % 3;
+
+        // Left
+        if (col == 0)
+            tile += "Left";
+        else
+        // Center
+        if (col == 1)
+            tile += "Center";
+        else
+        // Right
+        if (col == 2)
+            tile += "Right";
+
+
+        return tile;
     }
 
 }
