@@ -8,44 +8,81 @@ public class ReplaySystemManager : MonoBehaviour
 {
     public GameObject replayStepPrefab;
 
-    public GameObject replayStepsPanel;
-    public GameObject replayDropDown;
-    GameObject tictactoeBoard;
-    List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
+    GameObject replayStepsPanel, replayDropDown, backToMenuButton;
+
     List<GameObject> replayStepsButtonList = new List<GameObject>();
     List<string> replayStepBoardStates = new List<string>();
 
     const string IndexFilePath = "replayIndex.txt";
     public int lastIndexUsed;
-    public string saveReplayName;
     public List<string> replayNames;
     LinkedList<NameAndIndex> replayNameAndIndices;
 
+    GameObject gameSystemManager, boardSystemManager;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
 
         foreach (GameObject go in allObjects)
         {
-            if (go.name == "ReplayPanel")
+            if (go.name == "BackToMenuButton")
+                backToMenuButton = go;
+            else if (go.name == "ReplayPanel")
                 replayStepsPanel = go;
-            else if (go.name == "TicTacToeBoard")
-                tictactoeBoard = go;
             else if (go.name == "ReplayDropDown")
                 replayDropDown = go;
+            else if (go.name == "ReplayPanel")
+                replayStepsPanel = go;
+            else if (go.name == "ReplayDropDown")
+                replayDropDown = go;
+            else if (go.GetComponent<GameSystemManager>() != null)
+                gameSystemManager = go;
+            else if (go.GetComponent<BoardSystemManager>() != null)
+                boardSystemManager = go;
         }
 
+        replayStepPrefab = Resources.Load("Prefabs/ReplayStep") as GameObject;
+
+        backToMenuButton.GetComponent<Button>().onClick.AddListener(gameSystemManager.GetComponent<GameSystemManager>().GoToMainMenu);
         replayDropDown.GetComponent<Dropdown>().onValueChanged.AddListener(delegate { LoadDropDownChanged(); });
-
-        for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
-        {
-            int index = i;
-            tictactoeSquareButtonList.Add(tictactoeBoard.transform.GetChild(index).gameObject);
-        }
 
         LoadReplays();
 
+    }
+
+    public void ChangeState(int newState)
+    {
+        replayStepsPanel.SetActive(false);
+        replayDropDown.SetActive(false);
+        backToMenuButton.SetActive(false);
+
+        if (newState == GameStates.Replay)
+        {
+            // Show TicTacToe board
+            boardSystemManager.GetComponent<BoardSystemManager>().DisplayBoard(true);
+
+            // Show replay panel
+            replayStepsPanel.SetActive(true);
+            backToMenuButton.SetActive(true);
+            replayDropDown.SetActive(true);
+
+            // Update Replay Names
+            LoadReplays();
+
+            // Add Replays to Dropdown
+            Dropdown dropdown = replayDropDown.GetComponent<Dropdown>();
+            dropdown.options.Clear();
+
+            foreach (string option in replayNames)
+            {
+                dropdown.options.Add(new Dropdown.OptionData(option));
+            }
+
+            // Change Replay dropdown to the latest replay
+            dropdown.value = dropdown.options.Count - 1;
+        }
     }
 
     public void LoadReplays()
@@ -96,7 +133,7 @@ public class ReplaySystemManager : MonoBehaviour
 
     public void ReplayDropDownChanged(string selectedName)
     {
-        ResetBoard();
+        boardSystemManager.GetComponent<BoardSystemManager>().ResetBoard();
 
         int indexToLoad = -1;
 
@@ -124,7 +161,7 @@ public class ReplaySystemManager : MonoBehaviour
 
         // Get / Create a new name for the saved file
         lastIndexUsed++;
-        saveReplayName = lastIndexUsed.ToString();
+        string saveReplayName = lastIndexUsed.ToString();
         replayNameAndIndices.AddLast(new NameAndIndex(lastIndexUsed, saveReplayName));
 
         // Save information to a local file
@@ -256,21 +293,7 @@ public class ReplaySystemManager : MonoBehaviour
             var boardIndex = int.Parse(csv[i]);
             var team = int.Parse(csv[i + 1]);
 
-            if (team == TeamSignifier.O)
-                tictactoeSquareButtonList[boardIndex].transform.GetChild(0).GetComponent<Text>().text = "O";
-            else if (team == TeamSignifier.X)
-                tictactoeSquareButtonList[boardIndex].transform.GetChild(0).GetComponent<Text>().text = "X";
-            else if (team == TeamSignifier.None)
-                tictactoeSquareButtonList[boardIndex].transform.GetChild(0).GetComponent<Text>().text = "";
-
-        }
-    }
-
-    public void ResetBoard()
-    {
-        for (int i = 0; i < tictactoeSquareButtonList.Count; i++)
-        {
-            tictactoeSquareButtonList[i].transform.GetChild(0).GetComponent<Text>().text = "";
+            boardSystemManager.GetComponent<BoardSystemManager>().SetBoardTile(boardIndex, team);
         }
     }
 
@@ -313,6 +336,6 @@ public class ReplaySystemManager : MonoBehaviour
 
 public static class ReplaySignifiers
 {
-    public const int MoveInformation = 1;    // Team that played, Time taken, current move
+    public const int MoveInformation = 1;    // Team that played, current move
     public const int BoardState = 2;     // Position, Team
 }

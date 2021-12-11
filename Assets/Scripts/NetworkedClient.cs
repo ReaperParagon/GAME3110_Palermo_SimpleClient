@@ -18,7 +18,6 @@ public class NetworkedClient : MonoBehaviour
     int ourClientID;
 
     GameObject gameSystemManager;
-    GameObject replaySystemManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +28,9 @@ public class NetworkedClient : MonoBehaviour
         {
             if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
-            if (go.GetComponent<ReplaySystemManager>() != null)
-                replaySystemManager = go;
         }
+
+        gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.LoginMenu);
 
         Connect();
     }
@@ -39,9 +38,6 @@ public class NetworkedClient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.S))
-        //    SendMessageToHost("Hello from client");
-
         UpdateNetworkConnection();
     }
 
@@ -119,72 +115,8 @@ public class NetworkedClient : MonoBehaviour
     {
         Debug.Log("msg recieved = " + msg + ".  connection id = " + id);
 
-        string[] csv = msg.Split(',');
+        gameSystemManager.GetComponent<GameSystemManager>().ProcessMessage(msg, id);
 
-        int signifier = int.Parse(csv[0]);
-
-        if (signifier == ServerToClientSignifiers.AccountCreationComplete)
-        {
-            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
-        }
-        else if (signifier == ServerToClientSignifiers.LoginComplete)
-        {
-            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
-        }
-        else if (signifier == ServerToClientSignifiers.GameStart)
-        {
-            Debug.Log("Joined a Game!");
-            // Set our team
-            gameSystemManager.GetComponent<GameSystemManager>().OurTeam = int.Parse(csv[1]);
-
-            // Get whose turn it is
-            gameSystemManager.GetComponent<GameSystemManager>().SetTurn(int.Parse(csv[1]));
-            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.TicTacToe);
-        }
-        else if (signifier == ServerToClientSignifiers.OpponentPlayed)
-        {
-            Debug.Log("Opponent Played an X or O!");
-
-            // Set the X or O in the right place
-            var location = int.Parse(csv[1]);
-            var team = int.Parse(csv[2]);
-            var continuePlay = int.Parse(csv[3]);
-
-            gameSystemManager.GetComponent<GameSystemManager>().SetOpponentPlay(location, team);
-
-            // Set to your turn if we are continuing playing
-            if (continuePlay == WinStates.ContinuePlay)
-                gameSystemManager.GetComponent<GameSystemManager>().SetTurn(TurnSignifier.MyTurn);
-        }
-        else if (signifier == ServerToClientSignifiers.GameOver)
-        {
-            var outcome = int.Parse(csv[1]);
-
-            Debug.Log("Game is over");
-
-            // Tell Game system that game is over and to display end game information
-            gameSystemManager.GetComponent<GameSystemManager>().SetWinLoss(outcome);
-            gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.GameEnd);
-
-        }
-        else if (signifier == ServerToClientSignifiers.TextMessage)
-        {
-            // Display the message in the chat
-            gameSystemManager.GetComponent<GameSystemManager>().DisplayMessage(csv[1]);
-        }
-        else if (signifier == ServerToClientSignifiers.ReplayInformation)
-        {
-            // Tell the ReplaySystemManager to save this information
-            replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
-        }
-        else if (signifier == ServerToClientSignifiers.ServerList)
-        {
-            int roomID = int.Parse(csv[1]);
-            int observerCount = int.Parse(csv[2]);
-
-            // Add the servers to the main menu's list
-            gameSystemManager.GetComponent<GameSystemManager>().CreateRoom(roomID, observerCount);
-        }
     }
 
     public bool IsConnected()
@@ -206,15 +138,12 @@ public static class ClientToServerSignifiers
 {
     public const int CreateAccount = 1;
     public const int Login = 2;
-
     public const int JoinQueueForGameRoom = 3;
 
     public const int TicTacToePlay = 4;
-
     public const int LeaveRoom = 5;
 
     public const int TextMessage = 6;
-
     public const int RequestReplay = 7;
     public const int GetServerList = 8;
     public const int SpectateGame = 9;
@@ -229,20 +158,17 @@ public static class ServerToClientSignifiers
 
     public const int OpponentPlayed = 5;
     public const int GameStart = 6;
-
     public const int GameOver = 7;
 
     public const int TextMessage = 8;
-
     public const int ReplayInformation = 9;
-
     public const int ServerList = 10;
 }
 
 public static class WinStates
 {
-    public const int ContinuePlay = 0;
-    public const int OsWin = 1;
-    public const int XsWin = 2;
-    public const int Tie = 3;
+    public const int ContinuePlay = 100;
+    public const int OsWin = 0;
+    public const int XsWin = 1;
+    public const int Tie = 2;
 }
