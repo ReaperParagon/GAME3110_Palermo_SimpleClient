@@ -9,7 +9,7 @@ public class LobbySystemManager : MonoBehaviour
     GameObject textNameInfo, textPassordInfo;
 
     GameObject joinGameRoomButton, viewReplayButton, refreshRoomsButton;
-    GameObject gameRoomPanel;
+    GameObject gameRoomPanel, gameRoomScrollGroup;
     List<GameObject> gameRoomButtonList = new List<GameObject>();
 
     GameObject networkedClient, gameSystemManager;
@@ -47,6 +47,8 @@ public class LobbySystemManager : MonoBehaviour
                 refreshRoomsButton = go;
             else if (go.name == "GameRoomPanel")
                 gameRoomPanel = go;
+            else if (go.name == "GameRoomScrollGroup")
+                gameRoomScrollGroup = go;
             else if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
         }
@@ -136,29 +138,24 @@ public class LobbySystemManager : MonoBehaviour
     public void AskForRooms()
     {
         // Remove all rooms from room panel
-        var content = gameRoomPanel.transform.GetChild(0).GetChild(0);
-
-        for (int i = content.childCount - 1; i >= 0; i--)
+        for (int i = gameRoomScrollGroup.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(content.GetChild(i).gameObject);
+            Destroy(gameRoomScrollGroup.transform.GetChild(i).gameObject);
         }
 
         // Reset the room buttons list
         gameRoomButtonList.Clear();
 
         // Ask server for room list
-        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.GetServerList + ",");
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.GetGameRoomList + ",");
     }
 
     public void CreateRoom(int index, int spectatorCount)
     {
-        // Adds a room to room panel
-        var content = gameRoomPanel.transform.GetChild(0).GetChild(0);
-
-        // Add a child to the content
+        // Add a room to the game room container
         GameObject room = Instantiate(gameRoomPrefab);
-        room.transform.SetParent(content);
-        var text = room.transform.GetChild(0).GetComponent<Text>();
+        room.transform.SetParent(gameRoomScrollGroup.transform);
+        Text text = room.transform.GetChild(0).GetComponent<Text>();
         gameRoomButtonList.Add(room);
 
         // Append information to the text
@@ -168,7 +165,7 @@ public class LobbySystemManager : MonoBehaviour
         text.text += " | Watching: " + spectatorCount;
 
         // Add functionality to created Button
-        var spectateButton = room.transform.GetChild(1).GetComponent<Button>();
+        Button spectateButton = room.transform.GetChild(1).GetComponent<Button>();
         spectateButton.onClick.AddListener(delegate { JoinRoomAsObserver(index); });
     }
 

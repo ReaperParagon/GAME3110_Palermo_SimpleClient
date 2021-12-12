@@ -8,7 +8,7 @@ public class ReplaySystemManager : MonoBehaviour
 {
     public GameObject replayStepPrefab;
 
-    GameObject replayStepsPanel, replayDropDown, backToMenuButton;
+    GameObject replayStepsPanel, replayDropDown, backToMenuButton, replayScollGroup;
 
     List<GameObject> replayStepsButtonList = new List<GameObject>();
     List<string> replayStepBoardStates = new List<string>();
@@ -37,6 +37,8 @@ public class ReplaySystemManager : MonoBehaviour
                 replayStepsPanel = go;
             else if (go.name == "ReplayDropDown")
                 replayDropDown = go;
+            else if (go.name == "ReplayScrollGroup")
+                replayScollGroup = go;
             else if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
             else if (go.GetComponent<BoardSystemManager>() != null)
@@ -148,6 +150,7 @@ public class ReplaySystemManager : MonoBehaviour
         LoadReplayInformation(indexToLoad);
     }
 
+    // CHANGE THIS ON THE SERVER TO NOT USE THOSE DELIMITERS
     public void SaveReplay(string replayInfo)
     {
         // Separate each step of the replay
@@ -174,10 +177,9 @@ public class ReplaySystemManager : MonoBehaviour
             // Get the individual move information
             string[] info = steps[i].Split('.');
 
-            var boardIndex = int.Parse(info[0]);
-            var team = int.Parse(info[1]);
+            int boardIndex = int.Parse(info[0]);
+            int team = int.Parse(info[1]);
 
-            // Write the move information
             sw.WriteLine(ReplaySignifiers.MoveInformation + "," + team + "," + boardIndex + ",");
 
             // Write the board state information after adding info to board state array
@@ -215,11 +217,9 @@ public class ReplaySystemManager : MonoBehaviour
     public void LoadReplayInformation(int indexToLoad)
     {
         // Remove any previous buttons
-        var content = replayStepsPanel.transform.GetChild(0).GetChild(0);
-
-        for (int i = content.childCount - 1; i >= 0; i--)
+        for (int i = replayScollGroup.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(content.GetChild(i).gameObject);
+            Destroy(replayScollGroup.transform.GetChild(i).gameObject);
         }
 
         // Reset the step instructions list
@@ -236,18 +236,18 @@ public class ReplaySystemManager : MonoBehaviour
         {
             string[] csv = line.Split(',');
 
-            var signifier = int.Parse(csv[0]);
+            int signifier = int.Parse(csv[0]);
 
             // Indicating the Team that played the move
             if (signifier == ReplaySignifiers.MoveInformation)
             {
-                var team = int.Parse(csv[1]);
-                var move = int.Parse(csv[2]);
+                int team = int.Parse(csv[1]);
+                int move = int.Parse(csv[2]);
 
-                // Add a child to the content
+                // Add a child to the scroll group
                 GameObject step = Instantiate(replayStepPrefab);
-                step.transform.SetParent(content);
-                var text = step.transform.GetChild(0).GetComponent<Text>();
+                step.transform.SetParent(replayScollGroup.transform);
+                Text text = step.transform.GetChild(0).GetComponent<Text>();
                 replayStepsButtonList.Add(step);
 
                 // Append the Team name to the text
@@ -266,9 +266,9 @@ public class ReplaySystemManager : MonoBehaviour
             // Indicating the state of a specific position on the board
             if (signifier == ReplaySignifiers.BoardState)
             {
-                var childIndex = replayStepBoardStates.Count - 1;
-                var boardIndex = int.Parse(csv[1]);
-                var team = int.Parse(csv[2]);
+                int childIndex = replayStepBoardStates.Count - 1;
+                int boardIndex = int.Parse(csv[1]);
+                int team = int.Parse(csv[2]);
 
                 // Save the information into a List according to the current child
                 replayStepBoardStates[childIndex] += boardIndex + "," + team + ",";
@@ -281,22 +281,22 @@ public class ReplaySystemManager : MonoBehaviour
         for (int i = 0; i < replayStepBoardStates.Count; i++)
         {
             int index = i;
-            var replayStep = replayStepsButtonList[index];
-            replayStep.GetComponent<Button>().onClick.AddListener(() => LoadReplayStep(index));// delegate { LoadReplayStep(index); });
+            GameObject replayStep = replayStepsButtonList[index];
+            replayStep.GetComponent<Button>().onClick.AddListener(() => LoadReplayStep(index));
         }
     }
 
     public void LoadReplayStep(int index)
     {
         // Get the board state information
-        var boardInfo = replayStepBoardStates[index];
+        string boardInfo = replayStepBoardStates[index];
         string[] csv = boardInfo.Split(',');
 
         // Load board information into the board
         for (int i = 0; i < csv.Length - 1; i += 2)
         {
-            var boardIndex = int.Parse(csv[i]);
-            var team = int.Parse(csv[i + 1]);
+            int boardIndex = int.Parse(csv[i]);
+            int team = int.Parse(csv[i + 1]);
 
             boardSystemManager.GetComponent<BoardSystemManager>().SetBoardTile(boardIndex, team);
         }

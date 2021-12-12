@@ -89,27 +89,27 @@ public class BoardSystemManager : MonoBehaviour
 
     public void DisplayBoard(bool showBoard)
     {
-        foreach (var square in tictactoeSquareButtonList)
+        foreach (GameObject tile in tictactoeSquareButtonList)
         {
-            square.SetActive(showBoard);
+            tile.SetActive(showBoard);
         }
     }
 
     public void ResetBoard()
     {
         // Set all the button's texts back to nothing
-        foreach (var square in tictactoeSquareButtonList)
+        foreach (GameObject tile in tictactoeSquareButtonList)
         {
-            square.transform.GetChild(0).GetComponent<Text>().text = "";
+            tile.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
     public void SetBoardInteractable(bool interactable)
     {
         // Set all tiles to disabled
-        foreach (var square in tictactoeSquareButtonList)
+        foreach (GameObject tile in tictactoeSquareButtonList)
         {
-            square.GetComponent<Button>().interactable = interactable;
+            tile.GetComponent<Button>().interactable = interactable;
         }
     }
 
@@ -127,11 +127,11 @@ public class BoardSystemManager : MonoBehaviour
         if (turn == TurnSignifier.MyTurn)
         {
             // Enable squares
-            foreach (var square in tictactoeSquareButtonList)
+            foreach (GameObject tile in tictactoeSquareButtonList)
             {
                 // Check if there is something in that square
-                if (square.transform.GetChild(0).GetComponent<Text>().text == "")
-                    square.GetComponent<Button>().interactable = true;
+                if (tile.transform.GetChild(0).GetComponent<Text>().text == "")
+                    tile.GetComponent<Button>().interactable = true;
             }
         }
         else if (turn == TurnSignifier.TheirTurn)
@@ -184,4 +184,19 @@ static public class TurnSignifier
     public const int MyTurn = 0;
     public const int TheirTurn = 1;
     public const int Observer = 2;
+}
+
+public static class WinStates
+{
+    public const int ContinuePlay = 100;
+    public const int OsWin = 0;
+    public const int XsWin = 1;
+    public const int Tie = 2;
+}
+
+public static class TeamSignifier
+{
+    public const int None = -1;
+    public const int O = 0;
+    public const int X = 1;
 }

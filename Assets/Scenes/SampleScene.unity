@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 308484911}
   - component: {fileID: 308484910}
   m_Layer: 5
-  m_Name: Scrollbar Vertical
+  m_Name: TextScrollBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6495,7 +6495,7 @@ GameObject:
   - component: {fileID: 1344781955}
   - component: {fileID: 1344781954}
   m_Layer: 5
-  m_Name: Content
+  m_Name: ReplayScrollGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6572,7 +6572,7 @@ GameObject:
   - component: {fileID: 1353102298}
   - component: {fileID: 1353102297}
   m_Layer: 5
-  m_Name: Content
+  m_Name: TextScrollGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7548,7 +7548,7 @@ GameObject:
   - component: {fileID: 1471591303}
   - component: {fileID: 1471591302}
   m_Layer: 5
-  m_Name: Content
+  m_Name: GameRoomScrollGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

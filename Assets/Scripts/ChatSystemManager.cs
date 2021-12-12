@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ChatSystemManager : MonoBehaviour
 {
-    GameObject textHistory, chatPanel;
+    GameObject textHistory, chatPanel, textScrollGroup, textScrollBar;
     GameObject greetButton, ggButton, niceButton, oopsButton;
     GameObject inputMessageField, sendButton;
 
@@ -38,6 +38,10 @@ public class ChatSystemManager : MonoBehaviour
                 inputMessageField = go;
             else if (go.name == "SendButton")
                 sendButton = go;
+            else if (go.name == "TextScrollGroup")
+                textScrollGroup = go;
+            else if (go.name == "TextScrollBar")
+                textScrollBar = go;
         }
 
         greetButton.GetComponent<Button>().onClick.AddListener(GreetButtonPressed);
@@ -73,11 +77,9 @@ public class ChatSystemManager : MonoBehaviour
         else if (newState == GameStates.TicTacToe)
         {
             // Reset Messages
-            var messageContainer = textHistory.transform.GetChild(0).GetChild(0);
-
-            for (int i = messageContainer.childCount - 1; i >= 0; i--)
+            for (int i = textScrollGroup.transform.childCount - 1; i >= 0; i--)
             {
-                Destroy(messageContainer.GetChild(i).gameObject);
+                Destroy(textScrollGroup.transform.GetChild(i).gameObject);
             }
 
             // Show Message Options
@@ -94,8 +96,8 @@ public class ChatSystemManager : MonoBehaviour
     public void SendButtonPressed()
     {
         // Get text from Input field
-        var inputField = inputMessageField.GetComponent<InputField>();
-        var text = inputField.text;
+        InputField inputField = inputMessageField.GetComponent<InputField>();
+        string text = inputField.text;
 
         // Send Information to server
         SendTextMessage(text);
@@ -132,7 +134,7 @@ public class ChatSystemManager : MonoBehaviour
             var csv = msg.Split(',');
             string newMsg = "";
 
-            foreach (var str in csv)
+            foreach (string str in csv)
             {
                 newMsg += str + " ";
             }
@@ -144,15 +146,12 @@ public class ChatSystemManager : MonoBehaviour
 
     public void DisplayMessage(string msg)
     {
-        var content = textHistory.transform.GetChild(0).GetChild(0);
-        var scrollbar = textHistory.transform.GetChild(1).GetComponent<Scrollbar>();
-
         // Display Message in Chat history
         GameObject text = Instantiate(messagePrefab);
         text.GetComponent<Text>().text = msg;
-        text.transform.SetParent(content);
+        text.transform.SetParent(textScrollGroup.transform);
 
         // Scroll to bottom on message recieved
-        scrollbar.value = 0;
+        textScrollBar.GetComponent<Scrollbar>().value = 0;
     }
 }

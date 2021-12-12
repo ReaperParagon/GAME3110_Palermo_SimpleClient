@@ -55,9 +55,9 @@ public class GameSystemManager : MonoBehaviour
         else if (signifier == ServerToClientSignifiers.OpponentPlayed)
         {
             // Set the X or O in the right place
-            var location = int.Parse(csv[1]);
-            var team = int.Parse(csv[2]);
-            var continuePlay = int.Parse(csv[3]);
+            int location = int.Parse(csv[1]);
+            int team = int.Parse(csv[2]);
+            int continuePlay = int.Parse(csv[3]);
 
             boardSystemManager.GetComponent<BoardSystemManager>().SetBoardTile(location, team);
 
@@ -70,7 +70,7 @@ public class GameSystemManager : MonoBehaviour
             // Change the state
             ChangeState(GameStates.GameEnd);
 
-            var outcome = int.Parse(csv[1]);
+            int outcome = int.Parse(csv[1]);
 
             // Tell board system that the game is over and to display end game information
             boardSystemManager.GetComponent<BoardSystemManager>().SetWinLoss(outcome);
@@ -83,7 +83,7 @@ public class GameSystemManager : MonoBehaviour
         }
         else if (signifier == ServerToClientSignifiers.ReplayInformation)
         {
-            var replayInstructionCheck = csv[1];
+            string replayInstructionCheck = csv[1];
 
             // Check if we are being told to reset our replay files so we can get the new ones...
             if (replayInstructionCheck == ReplayReadSignifier.ResetLocalReplayFiles.ToString())
@@ -95,7 +95,7 @@ public class GameSystemManager : MonoBehaviour
             // Tell the ReplaySystemManager to save this information
             replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
         }
-        else if (signifier == ServerToClientSignifiers.ServerList)
+        else if (signifier == ServerToClientSignifiers.GameRoomList)
         {
             int roomID = int.Parse(csv[1]);
             int observerCount = int.Parse(csv[2]);
@@ -144,10 +144,6 @@ public class GameSystemManager : MonoBehaviour
 
         // Change State to replay scene
         ChangeState(GameStates.Replay);
-
-        // Load the Replay information
-        // replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation(replaySystemManager.GetComponent<ReplaySystemManager>().lastIndexUsed);
-
     }
 }
 
@@ -162,4 +158,36 @@ static public class GameStates
     public const int TicTacToe = 4;
     public const int GameEnd = 5;
     public const int Replay = 6;
+}
+
+
+public static class ClientToServerSignifiers
+{
+    public const int CreateAccount = 1;
+    public const int Login = 2;
+    public const int JoinQueueForGameRoom = 3;
+
+    public const int TicTacToePlay = 4;
+    public const int LeaveRoom = 5;
+
+    public const int TextMessage = 6;
+    public const int RequestReplays = 7;
+    public const int GetGameRoomList = 8;
+    public const int SpectateGame = 9;
+}
+
+public static class ServerToClientSignifiers
+{
+    public const int LoginComplete = 1;
+    public const int LoginFailed = 2;
+    public const int AccountCreationComplete = 3;
+    public const int AccountCreationFailed = 4;
+
+    public const int OpponentPlayed = 5;
+    public const int GameStart = 6;
+    public const int GameOver = 7;
+
+    public const int TextMessage = 8;
+    public const int ReplayInformation = 9;
+    public const int GameRoomList = 10;
 }
