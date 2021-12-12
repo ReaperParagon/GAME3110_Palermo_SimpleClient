@@ -16,7 +16,7 @@ public class ReplaySystemManager : MonoBehaviour
     const string IndexFilePath = "replayIndex.txt";
     public int lastIndexUsed;
     public List<string> replayNames;
-    LinkedList<NameAndIndex> replayNameAndIndices;
+    LinkedList<NameAndIndex> replayNameAndIndices = new LinkedList<NameAndIndex>();
 
     GameObject gameSystemManager, boardSystemManager;
 
@@ -48,8 +48,8 @@ public class ReplaySystemManager : MonoBehaviour
         backToMenuButton.GetComponent<Button>().onClick.AddListener(gameSystemManager.GetComponent<GameSystemManager>().GoToMainMenu);
         replayDropDown.GetComponent<Dropdown>().onValueChanged.AddListener(delegate { LoadDropDownChanged(); });
 
-        LoadReplays();
-
+        // Clear Drop down options
+        replayDropDown.GetComponent<Dropdown>().ClearOptions();
     }
 
     public void ChangeState(int newState)
@@ -67,28 +67,15 @@ public class ReplaySystemManager : MonoBehaviour
             replayStepsPanel.SetActive(true);
             backToMenuButton.SetActive(true);
             replayDropDown.SetActive(true);
-
-            // Update Replay Names
-            LoadReplays();
-
-            // Add Replays to Dropdown
-            Dropdown dropdown = replayDropDown.GetComponent<Dropdown>();
-            dropdown.options.Clear();
-
-            foreach (string option in replayNames)
-            {
-                dropdown.options.Add(new Dropdown.OptionData(option));
-            }
-
-            // Change Replay dropdown to the latest replay
-            dropdown.value = dropdown.options.Count - 1;
         }
     }
 
-    public void LoadReplays()
+    public void LoadReplaysIntoDropDown()
     {
+        // Reset stored replay information
         replayNameAndIndices = new LinkedList<NameAndIndex>();
 
+        // Get the replays from the index file, save into replayNameAndIndices
         if (File.Exists(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath))
         {
             StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
@@ -114,6 +101,7 @@ public class ReplaySystemManager : MonoBehaviour
             sr.Close();
         }
 
+        // Add Names for use in drop down
         replayNames = new List<string>();
 
         foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
@@ -121,6 +109,20 @@ public class ReplaySystemManager : MonoBehaviour
             replayNames.Add(nameAndIndex.name);
         }
 
+        // Add Replays to Dropdown
+        Dropdown dropdown = replayDropDown.GetComponent<Dropdown>();
+        dropdown.options.Clear();
+
+        foreach (string option in replayNames)
+        {
+            dropdown.options.Add(new Dropdown.OptionData(option));
+        }
+
+        // Change Replay dropdown to the latest replay
+        dropdown.value = dropdown.options.Count - 1;
+
+        // Load that replay
+        LoadDropDownChanged();
     }
 
     public void LoadDropDownChanged()
@@ -191,6 +193,9 @@ public class ReplaySystemManager : MonoBehaviour
 
         // Add file to a list of replay files
         SaveReplayToList();
+
+        // Add to the drop down
+        LoadReplaysIntoDropDown();
     }
 
     public void SaveReplayToList()
@@ -330,9 +335,41 @@ public class ReplaySystemManager : MonoBehaviour
         return tile;
     }
 
+    public void ResetReplayList()
+    {
+        // Reset local index file
+        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
+
+        sw.WriteLine("");
+
+        sw.Close();
+
+        // Reset our last index used and our stored replay information, so we can overwrite the files
+        lastIndexUsed = 0;
+        replayNameAndIndices = new LinkedList<NameAndIndex>();
+    }
+
 }
 
 
+public class NameAndIndex
+{
+    public string name;
+    public int index;
+
+    public NameAndIndex(int Index, string Name)
+    {
+        index = Index;
+        name = Name;
+    }
+}
+
+static public class ReplayReadSignifier
+{
+    public const int LastUsedIndexSignifier = 1;
+    public const int IndexAndNameSignifier = 2;
+    public const int ResetLocalReplayFiles = 100;
+}
 
 public static class ReplaySignifiers
 {

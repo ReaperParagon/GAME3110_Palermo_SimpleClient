@@ -163,7 +163,7 @@ public class BoardSystemManager : MonoBehaviour
     public void SaveReplayButtonPressed()
     {
         // Tell server to save the replay
-        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplay + "");
+        // networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplays + "");
 
         // Hide Save Button, Show Go To Replay Button
         saveReplayButton.SetActive(false);
@@ -185,4 +185,11 @@ public class BoardSystemManager : MonoBehaviour
             gameOverText.GetComponent<Text>().text = "It's a Tie.";
         }
     }
+}
+
+static public class TurnSignifier
+{
+    public const int MyTurn = 0;
+    public const int TheirTurn = 1;
+    public const int Observer = 2;
 }

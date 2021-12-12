@@ -144,7 +144,7 @@ public static class ClientToServerSignifiers
     public const int LeaveRoom = 5;
 
     public const int TextMessage = 6;
-    public const int RequestReplay = 7;
+    public const int RequestReplays = 7;
     public const int GetServerList = 8;
     public const int SpectateGame = 9;
 }

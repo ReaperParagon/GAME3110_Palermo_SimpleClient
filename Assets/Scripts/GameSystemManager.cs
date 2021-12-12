@@ -83,6 +83,15 @@ public class GameSystemManager : MonoBehaviour
         }
         else if (signifier == ServerToClientSignifiers.ReplayInformation)
         {
+            var replayInstructionCheck = csv[1];
+
+            // Check if we are being told to reset our replay files so we can get the new ones...
+            if (replayInstructionCheck == ReplayReadSignifier.ResetLocalReplayFiles.ToString())
+            {
+                replaySystemManager.GetComponent<ReplaySystemManager>().ResetReplayList();
+                return;
+            }
+
             // Tell the ReplaySystemManager to save this information
             replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
         }
@@ -130,38 +139,21 @@ public class GameSystemManager : MonoBehaviour
         boardSystemManager.GetComponent<BoardSystemManager>().SetBoardInteractable(false);
         boardSystemManager.GetComponent<BoardSystemManager>().ResetBoard();
 
-        // Load the Replay information
-        replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation(replaySystemManager.GetComponent<ReplaySystemManager>().lastIndexUsed);
+        // Get all available replays from the server for our client (based on the name associated with our client ID)
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplays + "");
 
         // Change State to replay scene
         ChangeState(GameStates.Replay);
+
+        // Load the Replay information
+        // replaySystemManager.GetComponent<ReplaySystemManager>().LoadReplayInformation(replaySystemManager.GetComponent<ReplaySystemManager>().lastIndexUsed);
+
     }
 }
 
-public class NameAndIndex
-{
-    public string name;
-    public int index;
 
-    public NameAndIndex(int Index, string Name)
-    {
-        index = Index;
-        name = Name;
-    }
-}
 
-static public class ReplayReadSignifier
-{
-    public const int LastUsedIndexSignifier = 1;
-    public const int IndexAndNameSignifier = 2;
-}
 
-static public class TurnSignifier
-{
-    public const int MyTurn = 0;
-    public const int TheirTurn = 1;
-    public const int Observer = 2;
-}
 static public class GameStates
 {
     public const int LoginMenu = 1;
