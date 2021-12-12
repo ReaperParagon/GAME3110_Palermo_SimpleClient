@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BoardSystemManager : MonoBehaviour
 {
     GameObject gameOverText, returnToMenuButton;
-    GameObject saveReplayButton, gotoReplayButton;
+    GameObject gotoReplayButton;
 
     GameObject tictactoeBoard;
     public List<GameObject> tictactoeSquareButtonList = new List<GameObject>();
@@ -32,15 +32,12 @@ public class BoardSystemManager : MonoBehaviour
                 returnToMenuButton = go;
             else if (go.name == "GoToReplayButton")
                 gotoReplayButton = go;
-            else if (go.name == "SaveReplayButton")
-                saveReplayButton = go;
             else if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
         }
 
         returnToMenuButton.GetComponent<Button>().onClick.AddListener(gameSystemManager.GetComponent<GameSystemManager>().GoToMainMenu);
         gotoReplayButton.GetComponent<Button>().onClick.AddListener(gameSystemManager.GetComponent<GameSystemManager>().ViewReplays);
-        saveReplayButton.GetComponent<Button>().onClick.AddListener(SaveReplayButtonPressed);
 
         for (int i = 0; i < tictactoeBoard.transform.childCount; i++)
         {
@@ -55,7 +52,6 @@ public class BoardSystemManager : MonoBehaviour
         gameOverText.SetActive(false);
         gotoReplayButton.SetActive(false);
         returnToMenuButton.SetActive(false);
-        saveReplayButton.SetActive(false);
 
         DisplayBoard(false);
 
@@ -80,8 +76,14 @@ public class BoardSystemManager : MonoBehaviour
             DisplayBoard(true);
 
             gameOverText.SetActive(true);
-            saveReplayButton.SetActive(true);
             returnToMenuButton.SetActive(true);
+
+            // If an observer, don't show go to replay button, they won't have the replay anyway
+            if (OurTeam != TeamSignifier.None)
+            {
+                gotoReplayButton.SetActive(true);
+            }
+
         }
     }
 
@@ -158,16 +160,6 @@ public class BoardSystemManager : MonoBehaviour
         SetBoardTile(index, OurTeam);
 
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.TicTacToePlay + "," + index);
-    }
-
-    public void SaveReplayButtonPressed()
-    {
-        // Tell server to save the replay
-        // networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplays + "");
-
-        // Hide Save Button, Show Go To Replay Button
-        saveReplayButton.SetActive(false);
-        gotoReplayButton.SetActive(true);
     }
 
     public void SetWinLoss(int winLoss)
