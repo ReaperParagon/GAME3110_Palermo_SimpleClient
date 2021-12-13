@@ -81,19 +81,47 @@ public class GameSystemManager : MonoBehaviour
             // Display the message in the chat
             chatSystemManager.GetComponent<ChatSystemManager>().DisplayMessage(csv[1]);
         }
+        else if (signifier == ServerToClientSignifiers.ReplayIndexList)
+        {
+            int replayTransferSignifier = int.Parse(csv[1]);
+
+            // Check to see if we need to reset the list, or add a number to the index list
+            if (replayTransferSignifier == ReplayTransferSignifiers.ResetIndexList)
+            {
+                replaySystemManager.GetComponent<ReplaySystemManager>().ResetIndicesList();
+            }
+            else
+            if (replayTransferSignifier == ReplayTransferSignifiers.IndexNumber)
+            {
+                int indexToAdd = int.Parse(csv[2]);
+
+                replaySystemManager.GetComponent<ReplaySystemManager>().AddIndexToList(indexToAdd);
+            }
+        }
         else if (signifier == ServerToClientSignifiers.ReplayInformation)
         {
-            string replayInstructionCheck = csv[1];
+            int replayTransferSignifier = int.Parse(csv[1]);
 
-            // Check if we are being told to reset our replay files so we can get the new ones...
-            if (replayInstructionCheck == ReplayReadSignifier.ResetLocalReplayFiles.ToString())
+            if (replayTransferSignifier == ReplayTransferSignifiers.StartReplayStep)
             {
-                replaySystemManager.GetComponent<ReplaySystemManager>().ResetReplayList();
-                return;
+                // Reset Replay step list
+                replaySystemManager.GetComponent<ReplaySystemManager>().ResetReplayStepsList();
             }
+            else
+            if (replayTransferSignifier == ReplayTransferSignifiers.ReplayStep)
+            {
+                // Add step to the list
+                string location = csv[2];
+                string team = csv[3];
 
-            // Tell the ReplaySystemManager to save this information
-            replaySystemManager.GetComponent<ReplaySystemManager>().SaveReplay(csv[1]);
+                replaySystemManager.GetComponent<ReplaySystemManager>().AddReplayStepIntoList(location + "," + team);
+            }
+            else
+            if (replayTransferSignifier == ReplayTransferSignifiers.EndReplaySteps)
+            {
+                // Save step list as a replay
+                replaySystemManager.GetComponent<ReplaySystemManager>().SaveStepsAsReplay();
+            }
         }
         else if (signifier == ServerToClientSignifiers.GameRoomList)
         {
@@ -140,10 +168,15 @@ public class GameSystemManager : MonoBehaviour
         boardSystemManager.GetComponent<BoardSystemManager>().ResetBoard();
 
         // Get all available replays from the server for our client (based on the name associated with our client ID)
-        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplays + "");
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplayList + "");
 
         // Change State to replay scene
         ChangeState(GameStates.Replay);
+    }
+
+    public void AskForReplay(int index)
+    {
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(ClientToServerSignifiers.RequestReplayByIndex + "," + index);
     }
 }
 
@@ -171,9 +204,10 @@ public static class ClientToServerSignifiers
     public const int LeaveRoom = 5;
 
     public const int TextMessage = 6;
-    public const int RequestReplays = 7;
-    public const int GetGameRoomList = 8;
-    public const int SpectateGame = 9;
+    public const int RequestReplayList = 7;
+    public const int RequestReplayByIndex = 8;
+    public const int GetGameRoomList = 9;
+    public const int SpectateGame = 10;
 }
 
 public static class ServerToClientSignifiers
@@ -188,6 +222,16 @@ public static class ServerToClientSignifiers
     public const int GameOver = 7;
 
     public const int TextMessage = 8;
-    public const int ReplayInformation = 9;
-    public const int GameRoomList = 10;
+    public const int ReplayIndexList = 9;
+    public const int ReplayInformation = 10;
+    public const int GameRoomList = 11;
+}
+
+public static class ReplayTransferSignifiers
+{
+    public const int ResetIndexList = 1;
+    public const int IndexNumber = 2;
+    public const int StartReplayStep = 3;
+    public const int ReplayStep = 4;
+    public const int EndReplaySteps = 5;
 }

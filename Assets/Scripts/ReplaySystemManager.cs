@@ -13,10 +13,9 @@ public class ReplaySystemManager : MonoBehaviour
 
     List<GameObject> replayStepsButtonList = new List<GameObject>();
     List<string> replayStepBoardStates = new List<string>();
+    List<string> replayStepsList = new List<string>();
 
-    const string IndexFilePath = "replayIndex.txt";
-    public int lastIndexUsed;
-    public List<string> replayNames;
+    const string currentReplayFilePath = "currentReplayFile.txt";
     LinkedList<NameAndIndex> replayNameAndIndices = new LinkedList<NameAndIndex>();
 
     GameObject gameSystemManager, boardSystemManager;
@@ -79,52 +78,15 @@ public class ReplaySystemManager : MonoBehaviour
         }
     }
 
-    public void LoadReplaysIntoDropDown()
+    public void LoadReplayIndicesIntoDropDown()
     {
-        // Reset stored replay information
-        replayNameAndIndices = new LinkedList<NameAndIndex>();
-
-        // Get the replays from the index file, save into replayNameAndIndices
-        if (File.Exists(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath))
-        {
-            StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
-
-            string line;
-            while ((line = sr.ReadLine()) != null)
-            {
-                Debug.Log(line);
-
-                string[] csv = line.Split(',');
-                int signifier = int.Parse(csv[0]);
-
-                if (signifier == ReplayReadSignifier.LastUsedIndexSignifier)
-                {
-                    lastIndexUsed = int.Parse(csv[1]);
-                }
-                else if (signifier == ReplayReadSignifier.IndexAndNameSignifier)
-                {
-                    replayNameAndIndices.AddLast(new NameAndIndex(int.Parse(csv[1]), csv[2]));
-                }
-            }
-
-            sr.Close();
-        }
-
-        // Add Names for use in drop down
-        replayNames = new List<string>();
-
-        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
-        {
-            replayNames.Add(nameAndIndex.name);
-        }
-
-        // Add Replays to Dropdown
         Dropdown dropdown = replayDropDown.GetComponent<Dropdown>();
         dropdown.options.Clear();
 
-        foreach (string option in replayNames)
+        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
         {
-            dropdown.options.Add(new Dropdown.OptionData(option));
+            // Add that to the dropdown
+            dropdown.options.Add(new Dropdown.OptionData(nameAndIndex.name));
         }
 
         // Change Replay dropdown to the latest replay
@@ -154,15 +116,37 @@ public class ReplaySystemManager : MonoBehaviour
                 indexToLoad = nameAndIndex.index;
         }
 
-        LoadReplayInformation(indexToLoad);
+        if (indexToLoad != -1)
+            gameSystemManager.GetComponent<GameSystemManager>().AskForReplay(indexToLoad);
     }
 
-    // CHANGE THIS ON THE SERVER TO NOT USE THOSE DELIMITERS
-    public void SaveReplay(string replayInfo)
+    public void ResetIndicesList()
     {
-        // Separate each step of the replay
-        string[] steps = replayInfo.Split(';');
+        // Reset stored replay information
+        replayNameAndIndices = new LinkedList<NameAndIndex>();
+    }
 
+    public void AddIndexToList(int index)
+    {
+        replayNameAndIndices.AddLast(new NameAndIndex(index, index.ToString()));
+
+        // Load our new Indices into our dropdown
+        LoadReplayIndicesIntoDropDown();
+    }
+
+    public void ResetReplayStepsList()
+    {
+        replayStepsList = new List<string>();
+    }
+
+    public void AddReplayStepIntoList(string replayStep)
+    {
+        // Put replay step into our list
+        replayStepsList.Add(replayStep);
+    }
+
+    public void SaveStepsAsReplay()
+    {
         // Setup string for storing current board state
         int[] boardState = new int[9];
 
@@ -171,18 +155,14 @@ public class ReplaySystemManager : MonoBehaviour
             boardState[i] = TeamSignifier.None;
         }
 
-        // Get / Create a new name for the saved file
-        lastIndexUsed++;
-        string saveReplayName = lastIndexUsed.ToString();
-        replayNameAndIndices.AddLast(new NameAndIndex(lastIndexUsed, saveReplayName));
-
         // Save information to a local file
-        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + lastIndexUsed + ".txt");
+        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + currentReplayFilePath);
 
-        for (int i = 0; i < steps.Length; i++)
+        for (int i = 0; i < replayStepsList.Count; i++)
         {
             // Get the individual move information
-            string[] info = steps[i].Split('.');
+            Debug.Log(replayStepsList[i]);
+            string[] info = replayStepsList[i].Split(',');
 
             int boardIndex = int.Parse(info[0]);
             int team = int.Parse(info[1]);
@@ -200,28 +180,10 @@ public class ReplaySystemManager : MonoBehaviour
 
         sw.Close();
 
-        // Add file to a list of replay files
-        SaveReplayToList();
-
-        // Add to the drop down
-        LoadReplaysIntoDropDown();
+        LoadReplayInformation();
     }
 
-    public void SaveReplayToList()
-    {
-        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
-
-        sw.WriteLine(ReplayReadSignifier.LastUsedIndexSignifier + "," + lastIndexUsed);
-
-        foreach (NameAndIndex nameAndIndex in replayNameAndIndices)
-        {
-            sw.WriteLine(ReplayReadSignifier.IndexAndNameSignifier + "," + nameAndIndex.index + "," + nameAndIndex.name);
-        }
-
-        sw.Close();
-    }
-
-    public void LoadReplayInformation(int indexToLoad)
+    public void LoadReplayInformation()
     {
         // Stop Replay coroutine if it is running
         if (replayAnimationCoroutine != null)
@@ -238,7 +200,7 @@ public class ReplaySystemManager : MonoBehaviour
         replayStepsButtonList.Clear();
 
         // Create new replay step buttons
-        StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + indexToLoad + ".txt");
+        StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar + currentReplayFilePath);
 
         int turnNumber = 0;
 
@@ -346,20 +308,6 @@ public class ReplaySystemManager : MonoBehaviour
         return tile;
     }
 
-    public void ResetReplayList()
-    {
-        // Reset local index file
-        StreamWriter sw = new StreamWriter(Application.dataPath + Path.DirectorySeparatorChar + IndexFilePath);
-
-        sw.WriteLine("");
-
-        sw.Close();
-
-        // Reset our last index used and our stored replay information, so we can overwrite the files
-        lastIndexUsed = 0;
-        replayNameAndIndices = new LinkedList<NameAndIndex>();
-    }
-
     public void PlayCurrentReplay()
     {
         // Set and Start Coroutine
@@ -402,7 +350,6 @@ static public class ReplayReadSignifier
 {
     public const int LastUsedIndexSignifier = 1;
     public const int IndexAndNameSignifier = 2;
-    public const int ResetLocalReplayFiles = 100;
 }
 
 public static class ReplaySignifiers
