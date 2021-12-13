@@ -9,6 +9,7 @@ public class ReplaySystemManager : MonoBehaviour
     public GameObject replayStepPrefab;
 
     GameObject replayStepsPanel, replayDropDown, backToMenuButton, replayScollGroup;
+    GameObject replayAnimationButton;
 
     List<GameObject> replayStepsButtonList = new List<GameObject>();
     List<string> replayStepBoardStates = new List<string>();
@@ -19,6 +20,7 @@ public class ReplaySystemManager : MonoBehaviour
     LinkedList<NameAndIndex> replayNameAndIndices = new LinkedList<NameAndIndex>();
 
     GameObject gameSystemManager, boardSystemManager;
+    IEnumerator replayAnimationCoroutine;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +41,8 @@ public class ReplaySystemManager : MonoBehaviour
                 replayDropDown = go;
             else if (go.name == "ReplayScrollGroup")
                 replayScollGroup = go;
+            else if (go.name == "PlayReplayButton")
+                replayAnimationButton = go;
             else if (go.GetComponent<GameSystemManager>() != null)
                 gameSystemManager = go;
             else if (go.GetComponent<BoardSystemManager>() != null)
@@ -48,6 +52,7 @@ public class ReplaySystemManager : MonoBehaviour
         replayStepPrefab = Resources.Load("Prefabs/ReplayStep") as GameObject;
 
         backToMenuButton.GetComponent<Button>().onClick.AddListener(gameSystemManager.GetComponent<GameSystemManager>().GoToMainMenu);
+        replayAnimationButton.GetComponent<Button>().onClick.AddListener(delegate { PlayCurrentReplay(); });
         replayDropDown.GetComponent<Dropdown>().onValueChanged.AddListener(delegate { LoadDropDownChanged(); });
 
         // Clear Drop down options
@@ -59,6 +64,7 @@ public class ReplaySystemManager : MonoBehaviour
         replayStepsPanel.SetActive(false);
         replayDropDown.SetActive(false);
         backToMenuButton.SetActive(false);
+        replayAnimationButton.SetActive(false);
 
         if (newState == GameStates.Replay)
         {
@@ -69,6 +75,7 @@ public class ReplaySystemManager : MonoBehaviour
             replayStepsPanel.SetActive(true);
             backToMenuButton.SetActive(true);
             replayDropDown.SetActive(true);
+            replayAnimationButton.SetActive(true);
         }
     }
 
@@ -216,6 +223,10 @@ public class ReplaySystemManager : MonoBehaviour
 
     public void LoadReplayInformation(int indexToLoad)
     {
+        // Stop Replay coroutine if it is running
+        if (replayAnimationCoroutine != null)
+            StopCoroutine(replayAnimationCoroutine);
+
         // Remove any previous buttons
         for (int i = replayScollGroup.transform.childCount - 1; i >= 0; i--)
         {
@@ -347,6 +358,29 @@ public class ReplaySystemManager : MonoBehaviour
         // Reset our last index used and our stored replay information, so we can overwrite the files
         lastIndexUsed = 0;
         replayNameAndIndices = new LinkedList<NameAndIndex>();
+    }
+
+    public void PlayCurrentReplay()
+    {
+        // Set and Start Coroutine
+        replayAnimationCoroutine = ReplayAnimationCoroutine();
+        StartCoroutine(replayAnimationCoroutine);
+    }
+
+    IEnumerator ReplayAnimationCoroutine()
+    {
+        // For each step... 
+        for (int i = 0; i < replayStepBoardStates.Count; i++)
+        {
+            // Load the replay step
+            LoadReplayStep(i);
+
+            // Wait for 1 second
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        // Unset our coroutine
+        replayAnimationCoroutine = null;
     }
 
 }
